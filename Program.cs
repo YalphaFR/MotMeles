@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace programme
+namespace MotMeles_v1
 {
     internal class Program
     {
@@ -40,10 +40,12 @@ namespace programme
             Console.Clear();
             Joueur[] joueurs = ListerJoueurs();
             Console.WriteLine("En attente...");
+            Console.ReadKey();
         }
 
         public static void ChargerPartie() {
             Console.WriteLine("En cours de réflexion...");
+            Console.ReadKey();
         }
 
         public static Boolean EstNumerique(String entree, NumberStyles numberStyle) {
@@ -57,7 +59,7 @@ namespace programme
                 Console.WriteLine("Veuillez sélectionner le nombre de joueur pour la nouvelle partie :\n");
                 combienDeJoueur = Console.ReadLine();
                 // tant que le nbr de joueur n'est pas bien renseigné et ou que ce n'est pas une valeur numérique
-            } while (combienDeJoueur != null || !EstNumerique(combienDeJoueur, NumberStyles.Number));
+            } while (combienDeJoueur == null || !EstNumerique(combienDeJoueur, NumberStyles.Number));
 
             int nbrDeJoueur = int.Parse(combienDeJoueur);
 
@@ -67,7 +69,8 @@ namespace programme
                 Console.WriteLine($"Quel est le nom du joueur {i + 1} ?\n");
                 Console.WriteLine("Veuillez renseigner un nom unique pour chaque joueur");
                 nomJoueur = Console.ReadLine();
-                while (nomJoueur == null || Array.Find(joueurs, p => p.Nom == nomJoueur)) {
+                // tant que l'utilisateur ne tappe pas un nom valable ou que le nom est déjà prit
+                while (nomJoueur == null || Array.Find(joueurs, j => j != null && j.Nom == nomJoueur) != null) {
                     Console.WriteLine($"Le nom {nomJoueur} n'est pas valable\n");
                     Console.WriteLine($"Quel est le nom du joueur {i + 1} ?\n");
                     Console.WriteLine("Veuillez renseigner un nom unique pour chaque joueur");
