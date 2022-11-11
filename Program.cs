@@ -12,6 +12,10 @@ namespace MotMeles_v1
     {
         static void Main(string[] args)
         {
+            string cheminDicoFrancais = "";
+            string cheminDicoAnglais = "";
+            ChargerDictionnaire(cheminDicoFrancais);
+            ChargerDictionnaire(cheminDicoAnglais);
             // Lancement du jeu complet uniquement à partir du menu
             Menu();
         }
@@ -80,6 +84,10 @@ namespace MotMeles_v1
                 joueurs[i] = nouveauJoueur;
             }
             return joueurs;
-        } 
+        }
+
+        public static Dictionnaire ChargerDictionnaire() {
+
+        }
     }
 }

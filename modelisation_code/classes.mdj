@@ -434,7 +434,7 @@
 											"top": 173,
 											"width": 238,
 											"height": 13,
-											"text": "-mots: Dictionary<List>",
+											"text": "-mots: Dictionary<string>",
 											"horizontalAlignment": 0
 										}
 									],
@@ -2332,13 +2332,30 @@
 											"height": 13,
 											"text": "+LancerNouvellePartie(): void",
 											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAGEZ5Xu0B+z26s=",
+											"_parent": {
+												"$ref": "AAAAAAGEZlEu3BTD9RM="
+											},
+											"model": {
+												"$ref": "AAAAAAGEZ5Xurh+n6ic="
+											},
+											"font": "Arial;13;0",
+											"left": 317,
+											"top": 1059,
+											"width": 404.2568359375,
+											"height": 13,
+											"text": "+ChargerDictionnaire(): Dictionary",
+											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 312,
 									"top": 979,
 									"width": 414.2568359375,
-									"height": 83
+									"height": 98
 								},
 								{
 									"_type": "UMLReceptionCompartmentView",
@@ -2598,7 +2615,7 @@
 							},
 							"name": "mots",
 							"visibility": "private",
-							"type": "Dictionary<List>"
+							"type": "Dictionary<string>"
 						}
 					],
 					"operations": [
@@ -3186,7 +3203,8 @@
 									"_parent": {
 										"$ref": "AAAAAAGEZlKMLhsmDpo="
 									},
-									"name": "String entree"
+									"name": "String entree",
+									"type": ""
 								},
 								{
 									"_type": "UMLParameter",
@@ -3194,7 +3212,8 @@
 									"_parent": {
 										"$ref": "AAAAAAGEZlKMLhsmDpo="
 									},
-									"name": "NumberStyles numberStyle"
+									"name": "NumberStyles numberStyle",
+									"type": ""
 								}
 							]
 						},
@@ -3234,6 +3253,25 @@
 										"$ref": "AAAAAAGEZlY6pCoJzPE="
 									},
 									"type": "void",
+									"direction": "return"
+								}
+							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGEZ5Xurh+n6ic=",
+							"_parent": {
+								"$ref": "AAAAAAGEZlEu0hS6zLs="
+							},
+							"name": "ChargerDictionnaire",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGEZ5ZTQCAsgL8=",
+									"_parent": {
+										"$ref": "AAAAAAGEZ5Xurh+n6ic="
+									},
+									"type": "Dictionary",
 									"direction": "return"
 								}
 							]

@@ -19,15 +19,18 @@ namespace MotMeles_v1 {
             get { return nom; }
             set { nom = value; }
         }
+
         public List<string> Mots //possibilité erreur avec liste
         {
             get { return mots; }
             set { mots = value; }
         }
+
         public int Score {
             get { return score; }
             set { score = value; }
         }
+
         public void Add_Mot(string mot) //possibilité erreur avec liste
         {
             this.mots.Add(mot);
