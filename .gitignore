@@ -1,0 +1,8 @@
+.vs/
+src/programme/.vs
+src/programme/bin
+src/programme/obj
+src/programme/Properties
+src/programme/App.config
+src/programme/programme.csproj
+src/programme/programme.sln
