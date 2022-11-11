@@ -4,18 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MotMeles_v1 {
-    internal class Joueur {
+namespace MotMeles_v1
+{
+    internal class Joueur
+    {
         private string nom;
         private List<string> mots; //possibilité erreur avec liste
         private int score;
-        public Joueur(string nom, List<string> mots = null, int score = 0) {
+        public Joueur(string nom, List<string> mots = null, int score = 0)
+        {
             this.nom = nom;
             this.mots = mots;
             this.score = score;
         }
 
-        public string Nom {
+        public string Nom
+        {
             get { return nom; }
             set { nom = value; }
         }
@@ -24,7 +28,8 @@ namespace MotMeles_v1 {
             get { return mots; }
             set { mots = value; }
         }
-        public int Score {
+        public int Score
+        {
             get { return score; }
             set { score = value; }
         }
@@ -33,9 +38,11 @@ namespace MotMeles_v1 {
             this.mots.Add(mot);
         }
 
-        public override string ToString() {
+        public override string ToString()
+        {
             string resultat = nom + " " + score + " points" + "/n" + "Mots trouvés : /n";
-            foreach (var mot in this.mots) {
+            foreach (var mot in this.mots)
+            {
                 resultat = resultat + mots + "/n";
             }
             return resultat;
