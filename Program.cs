@@ -101,7 +101,7 @@ namespace MotMeles_v1
         public static Dictionnaire ChoisirLangue() {
             ConsoleKeyInfo cki;
             bool choixValide;
-            Dictionnaire dictionnaire;
+            Dictionnaire dictionnaire = null;
             do {
                 choixValide = true;
                 Console.Clear();
