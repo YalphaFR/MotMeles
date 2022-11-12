@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,8 @@ namespace MotMeles_v1
 {
     internal class Program
     {
+        // charger les dictionnaires
+        // A faire
         static void Main(string[] args)
         {
             string cheminDicoFrancais = "";
@@ -43,6 +46,7 @@ namespace MotMeles_v1
         public static void LancerNouvellePartie() {
             Console.Clear();
             Joueur[] joueurs = ListerJoueurs();
+            Dictionnaire dictionnaire = ChoisirLangue();
             Console.WriteLine("En attente...");
             Console.ReadKey();
         }
@@ -86,8 +90,53 @@ namespace MotMeles_v1
             return joueurs;
         }
 
-        public static Dictionnaire ChargerDictionnaire() {
+        public static string ChargerDictionnaire(string chemin) {
+            string contenuFichier = LireFichier(chemin);
+            if (contenuFichier != null) {
 
+            }
+            return null;
+        }
+
+        public static Dictionnaire ChoisirLangue() {
+            ConsoleKeyInfo cki;
+            bool choixValide;
+            Dictionnaire dictionnaire;
+            do {
+                choixValide = true;
+                Console.Clear();
+                Console.WriteLine("Veuillez choisir une des langues ci-dessous :\n\n");
+                Console.WriteLine("1. Français\n2. Anglais\n");
+                cki = Console.ReadKey();
+                if (cki.Key == ConsoleKey.D1 || cki.Key == ConsoleKey.NumPad1) {
+                    dictionnaire = ChargerDictionnaire("path");
+                } else if (cki.Key == ConsoleKey.D2 || cki.Key == ConsoleKey.NumPad2) {
+                    dictionnaire = ChargerDictionnaire("path");
+                } else {
+                    choixValide = false;
+                }
+            } while (choixValide);
+            return dictionnaire;
+        }
+
+        public static StreamReader OuvrirFichier(string path) {
+            if (File.Exists(path)) {
+                StreamReader sr = new StreamReader(path);
+                return sr;
+            }
+            return null;
+        }
+
+
+        public static string LireFichier(string path) {
+            StreamReader sr = OuvrirFichier(path);
+            if (sr != null) {
+                string contenu = sr.ReadLine();
+                sr.Close();
+                return contenu;
+            }
+            sr.Close();
+            return null;
         }
     }
 }

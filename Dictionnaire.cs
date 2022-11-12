@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace programme
+namespace MotMeles_v1
 {
     internal class Dictionnaire
     {
