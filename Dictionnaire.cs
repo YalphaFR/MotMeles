@@ -34,7 +34,7 @@ namespace MotMeles_v1 {
 
         public bool RechDichoRecursif(string mot) {
             if (mot != null && mot.Length > 0 && this.mots.ContainsKey(mot.Length.ToString())) {
-                return RechercheDichotomiqueRecursive(this.mots[mot.Length.ToString()], 0, this.mots.Count - 1, GenererCodeUnicodeInverse(mot))
+                return RechercheDichotomiqueRecursive(this.mots[mot.Length.ToString()], 0, this.mots.Count - 1, Utile.GenererCodeUnicodeInverse(mot))
                     != null;
             }
             return false;
@@ -49,7 +49,7 @@ namespace MotMeles_v1 {
             if (mot == null) {
                 return null;
             }
-            int unicodeMot = GenererCodeUnicodeInverse(mot);
+            int unicodeMot = Utile.GenererCodeUnicodeInverse(mot);
             if (unicodeMot < unicodeMotCherche) {
                 return RechercheDichotomiqueRecursive(mots, i, milieu + 1, unicodeMotCherche);
             }
@@ -58,16 +58,6 @@ namespace MotMeles_v1 {
             }
             return mot;
         }
-
-        public int GenererCodeUnicodeInverse(string mot) {
-            int unicode = 0;
-            string strUnicode = "";
-            foreach (char cara in mot) {
-                unicode = (int)cara;
-                strUnicode = unicode.ToString() + strUnicode;
-            }
-            unicode = int.Parse(strUnicode);
-            return unicode;
-        }
     }
+}
 
