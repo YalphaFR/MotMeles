@@ -4,6 +4,7 @@ using System.ComponentModel.Design;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,14 +12,8 @@ namespace MotMeles_v1
 {
     internal class Program
     {
-        // charger les dictionnaires
-        // A faire
         static void Main(string[] args)
         {
-            string cheminDicoFrancais = "";
-            string cheminDicoAnglais = "";
-            ChargerDictionnaire(cheminDicoFrancais);
-            ChargerDictionnaire(cheminDicoAnglais);
             // Lancement du jeu complet uniquement à partir du menu
             Menu();
         }
@@ -47,6 +42,11 @@ namespace MotMeles_v1
             Console.Clear();
             Joueur[] joueurs = ListerJoueurs();
             Dictionnaire dictionnaire = ChoisirLangue();
+            Console.WriteLine(dictionnaire.ToString());
+            string str = "AB";
+            int unicode = Utile.GenererCodeUnicodeInverse(str);
+            Console.WriteLine(unicode);
+            Console.WriteLine(dictionnaire.RechercheDichotomiqueRecursive(dictionnaire.Mots[str.Length.ToString()], 0, dictionnaire.Mots.Count - 1, unicode));
             Console.WriteLine("En attente...");
             Console.ReadKey();
         }
@@ -90,10 +90,27 @@ namespace MotMeles_v1
             return joueurs;
         }
 
-        public static string ChargerDictionnaire(string chemin) {
-            string contenuFichier = LireFichier(chemin);
-            if (contenuFichier != null) {
-
+        public static Dictionnaire ChargerDictionnaire(string chemin, string langue) {
+            IEnumerable<string> lignes = LireFichier(chemin);
+            if (lignes != null) {
+                Dictionary<string, string[]> dictionary = new Dictionary<string, string[]>();
+                string key = null;
+                string[] value = null;
+                for (int i = 0; i < lignes.Count(); i++) {
+                    // voir fichier dictionnaire chargé
+                    // première ligne = longueur des mots
+                    // deuxième ligne = ensemble de mots
+                    if (i % 2 == 0) {
+                        if (EstNumerique(lignes.ElementAt(i), NumberStyles.Number)) {
+                            key = lignes.ElementAt(i);
+                        }
+                    } else {
+                        value = lignes.ElementAt(i).Split(' ');
+                        dictionary.Add(key, value);
+                    }
+                }
+                Dictionnaire dictionnaire = new Dictionnaire(langue, dictionary);
+                return dictionnaire;
             }
             return null;
         }
@@ -103,39 +120,35 @@ namespace MotMeles_v1
             bool choixValide;
             Dictionnaire dictionnaire = null;
             do {
-                choixValide = true;
+                choixValide = false;
                 Console.Clear();
                 Console.WriteLine("Veuillez choisir une des langues ci-dessous :\n\n");
                 Console.WriteLine("1. Français\n2. Anglais\n");
                 cki = Console.ReadKey();
                 if (cki.Key == ConsoleKey.D1 || cki.Key == ConsoleKey.NumPad1) {
-                    dictionnaire = ChargerDictionnaire("path");
+                    dictionnaire = ChargerDictionnaire(Constantes.cheminDicoFrancais, "Français");
+                    if (dictionnaire == null) {
+                        choixValide = true;
+                        Console.WriteLine("Le dictionnaire n'a pas chargé correctement");
+                    }
                 } else if (cki.Key == ConsoleKey.D2 || cki.Key == ConsoleKey.NumPad2) {
-                    dictionnaire = ChargerDictionnaire("path");
+                    dictionnaire = ChargerDictionnaire(Constantes.cheminDicoAnglais, "English");
+                    if (dictionnaire == null) {
+                        choixValide = true;
+                        Console.WriteLine("Le dictionnaire n'a pas chargé correctement");
+                    }
                 } else {
-                    choixValide = false;
+                    choixValide = true;
                 }
             } while (choixValide);
             return dictionnaire;
         }
 
-        public static StreamReader OuvrirFichier(string path) {
-            if (File.Exists(path)) {
-                StreamReader sr = new StreamReader(path);
-                return sr;
+        public static IEnumerable<string> LireFichier(string chemin) {
+            if (File.Exists(chemin)) {
+                IEnumerable<string> lignes = File.ReadLines(chemin);
+                return lignes;
             }
-            return null;
-        }
-
-
-        public static string LireFichier(string path) {
-            StreamReader sr = OuvrirFichier(path);
-            if (sr != null) {
-                string contenu = sr.ReadLine();
-                sr.Close();
-                return contenu;
-            }
-            sr.Close();
             return null;
         }
     }
