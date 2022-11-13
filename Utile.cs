@@ -19,5 +19,13 @@ namespace MotMeles_v1 {
             unicode = int.Parse(strUnicode);
             return unicode;
         }
+
+        public static IEnumerable<string> LireFichier(string chemin) {
+            if (File.Exists(chemin)) {
+                IEnumerable<string> lignes = File.ReadLines(chemin);
+                return lignes;
+            }
+            return null;
+        }
     }
 }

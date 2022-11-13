@@ -91,7 +91,7 @@ namespace MotMeles_v1
         }
 
         public static Dictionnaire ChargerDictionnaire(string chemin, string langue) {
-            IEnumerable<string> lignes = LireFichier(chemin);
+            IEnumerable<string> lignes = Utile.LireFichier(chemin);
             if (lignes != null) {
                 Dictionary<string, string[]> dictionary = new Dictionary<string, string[]>();
                 string key = null;
@@ -142,14 +142,6 @@ namespace MotMeles_v1
                 }
             } while (choixValide);
             return dictionnaire;
-        }
-
-        public static IEnumerable<string> LireFichier(string chemin) {
-            if (File.Exists(chemin)) {
-                IEnumerable<string> lignes = File.ReadLines(chemin);
-                return lignes;
-            }
-            return null;
         }
     }
 }
