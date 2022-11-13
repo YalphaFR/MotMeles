@@ -1,19 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
 using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MotMeles_v1
-{
-    internal class Program
-    {
-        static void Main(string[] args)
-        {
+namespace MotMeles_v1 {
+    internal class Program {
+        static void Main(string[] args) {
             // Lancement du jeu complet uniquement à partir du menu
             Menu();
         }
@@ -40,9 +32,9 @@ namespace MotMeles_v1
 
         public static void LancerNouvellePartie() {
             Console.Clear();
-            Joueur[] joueurs = ListerJoueurs();
+            //Joueur[] joueurs = ListerJoueurs();
             Dictionnaire dictionnaire = ChoisirLangue();
-            Console.WriteLine(dictionnaire.ToString());
+            Console.Clear();
             string str = "AB";
             int unicode = Utile.GenererCodeUnicodeInverse(str);
             Console.WriteLine(unicode);

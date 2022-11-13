@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace programme {
     internal class Jeu {
-        private Dictionnaire dico;
+        /*private Dictionnaire dico;
         private Plateau[] plateaux;
         private Joueur[] joueurs;
 
@@ -56,6 +56,6 @@ namespace programme {
 
         public void Enregistrer() {
 
-        }
+        }*/
     }
 }

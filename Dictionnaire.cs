@@ -49,10 +49,10 @@ namespace MotMeles_v1 {
                 return null;
             }
             int unicodeMot = Utile.GenererCodeUnicodeInverse(mot);
-            if (unicodeMot < unicodeMotCherche) {
+            if (unicodeMotCherche < unicodeMot) {
                 return RechercheDichotomiqueRecursive(mots, i, milieu + 1, unicodeMotCherche);
             }
-            if (unicodeMot > unicodeMotCherche) {
+            if (unicodeMotCherche > unicodeMot) {
                 return RechercheDichotomiqueRecursive(mots, milieu - 1, j, unicodeMotCherche);
             }
             return mot;
