@@ -11,7 +11,7 @@ namespace programme {
         private Plateau[] plateaux;
         private Joueur[] joueurs;
 
-        public Jeu(Dictionnaire dico, Joueur[] joueurs, Plateau[] plateaux = null) {
+        public Jeu(Dictionnaire dico, Joueur[] joueurs, Plateau[] plateaux) {
             this.dico = dico;
             this.joueurs = joueurs;
             this.plateaux = plateaux;
@@ -47,7 +47,9 @@ namespace programme {
         }
 
         public void Jouer() {
-
+            Console.WriteLine("La partie va commencer.");
+            Console.WriteLine("Fin de la partie");
+            Console.ReadKey();
         }
 
         public void Fin() {

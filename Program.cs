@@ -13,6 +13,7 @@ namespace MotMeles_v1 {
 
         public static void Menu() {
             ConsoleKeyInfo cki;
+            Jeu partie = null;
             do {
                 Console.Clear();
                 Console.WriteLine("Bienvenue dans le jeu de mot mélés dernière génération !\n\n\n");
@@ -22,10 +23,11 @@ namespace MotMeles_v1 {
                     "\n\nQue souhaitez-vous faire ? Veuillez utiliser les touches qui font référencent à des chiffres pour intéragir avec le jeu.");
                 cki = Console.ReadKey();
                 if (cki.Key == ConsoleKey.D1 || cki.Key == ConsoleKey.NumPad1) {
-                    LancerNouvellePartie();
+                    partie = LancerNouvellePartie();
                 } else if (cki.Key == ConsoleKey.D2 || cki.Key == ConsoleKey.NumPad2) {
-                    ChargerPartie();
+                    partie = ChargerPartie();
                 }
+                partie.Jouer();
             } while (cki.Key != ConsoleKey.Escape);
             Console.WriteLine("Fin du programme");
             Console.ReadKey();
@@ -35,13 +37,13 @@ namespace MotMeles_v1 {
             Console.Clear();
             Joueur[] joueurs = ListerJoueurs();
             Dictionnaire dictionnaire = ChoisirLangue();
-            ChoisirDifficulte();
-            Console.WriteLine("En attente...");
-            Console.ReadKey();
-            return new Jeu(dictionnaire, joueurs);
+            int niveauDifficulte = ChoisirDifficulte();
+            int nbrDePlateauAGenerer = (Constantes.descriptionNiveauDeDifficulte.Length - (niveauDifficulte + 1)) * 2;
+            Plateau[] plateaux = new Plateau[niveauDifficulte];
+            return new Jeu(dictionnaire, joueurs, plateaux);
         }
 
-        public static void ChargerPartie() {
+        public static Jeu ChargerPartie() {
             Console.WriteLine("En cours de réflexion...");
             Console.ReadKey();
         }
@@ -130,7 +132,7 @@ namespace MotMeles_v1 {
             return dictionnaire;
         }
 
-        public static void ChoisirDifficulte() {
+        public static int ChoisirDifficulte() {
             Console.Clear();
             Console.WriteLine("Veuillez choisir un niveau de difficulté parmis ceux proposés :");
             string strDifficulte = Console.ReadLine();
@@ -142,6 +144,7 @@ namespace MotMeles_v1 {
                 estNumerique = Utile.EstNumerique(strDifficulte, NumberStyles.Integer);
                 niveauDifficulte = int.Parse(strDifficulte);
             }
+            return niveauDifficulte;
         }
     }
 }
