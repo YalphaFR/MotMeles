@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Globalization;
 
 namespace MotMeles_v1 {
     internal class Utile {
@@ -15,10 +16,13 @@ namespace MotMeles_v1 {
             string strUnicode = "";
             foreach (char cara in mot) {
                 unicode = (int)cara;
-                strUnicode = unicode.ToString() + strUnicode;
+                strUnicode += unicode.ToString();
             }
-            unicode = int.Parse(strUnicode);
-            return unicode;
+            bool estNumerique = int.TryParse(strUnicode, out unicode);
+            if (estNumerique) {
+                return unicode;
+            }
+            return -1;
         }
         
         public static IEnumerable<string> LireFichier(string chemin) {
@@ -27,6 +31,11 @@ namespace MotMeles_v1 {
                 return lignes;
             }
             return null;
+        }
+
+        public static Boolean EstNumerique(String entree, NumberStyles numberStyle) {
+            Boolean result = int.TryParse(entree, numberStyle, CultureInfo.CurrentCulture, out _);
+            return result;
         }
     }
 }

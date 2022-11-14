@@ -36,24 +36,25 @@ namespace MotMeles_v1 {
             if (mot == null || mot.Length < 1 || !this.mots.ContainsKey(mot.Length.ToString())) {
                 return false;
             }
-            return RechercheDichotomiqueRecursive(this.mots[mot.Length.ToString()], 0, this.mots.Count - 1, Utile.GenererCodeUnicodeInverse(mot)) != null;
+            string[] categorie = this.mots[mot.Length.ToString()];
+            return RechercheDichotomiqueRecursive(categorie, 0, categorie.Length - 1, Utile.GenererCodeUnicodeInverse(mot)) != null;
         }
 
-        public string RechercheDichotomiqueRecursive(string[] mots, int i, int j, int unicodeMotCherche) {
+        public string RechercheDichotomiqueRecursive(string[] tableau, int i, int j, int unicodeMotCherche) {
             if (i > j) {
                 return null;
             }
             int milieu = (i + j) / 2;
-            string mot = mots[milieu];
+            string mot = tableau[milieu];
             if (mot == null) {
                 return null;
             }
             int unicodeMot = Utile.GenererCodeUnicodeInverse(mot);
             if (unicodeMotCherche < unicodeMot) {
-                return RechercheDichotomiqueRecursive(mots, i, milieu + 1, unicodeMotCherche);
+                return RechercheDichotomiqueRecursive(tableau, i, milieu - 1, unicodeMotCherche);
             }
             if (unicodeMotCherche > unicodeMot) {
-                return RechercheDichotomiqueRecursive(mots, milieu - 1, j, unicodeMotCherche);
+                return RechercheDichotomiqueRecursive(tableau, milieu + 1, j, unicodeMotCherche);
             }
             return mot;
         }

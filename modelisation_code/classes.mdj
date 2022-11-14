@@ -831,12 +831,13 @@
 											"model": {
 												"$ref": "AAAAAAGEV0/FxZlBQU4="
 											},
+											"visible": false,
 											"font": "Arial;13;0",
 											"left": 325,
 											"top": 814,
 											"width": 394.18310546875,
 											"height": 13,
-											"text": "+LancerTimer(): Time",
+											"text": "+LancerTimer(): void",
 											"horizontalAlignment": 0
 										},
 										{
@@ -848,9 +849,10 @@
 											"model": {
 												"$ref": "AAAAAAGEV1FIvJlSVIg="
 											},
+											"visible": false,
 											"font": "Arial;13;0",
 											"left": 325,
-											"top": 829,
+											"top": 814,
 											"width": 394.18310546875,
 											"height": 13,
 											"text": "+FinTimer()",
@@ -861,7 +863,7 @@
 									"left": 320,
 									"top": 749,
 									"width": 404.18310546875,
-									"height": 98
+									"height": 68
 								},
 								{
 									"_type": "UMLReceptionCompartmentView",
@@ -1105,6 +1107,24 @@
 											"height": 13,
 											"text": "+Attribute2",
 											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAGEdcA1hfc0+Eg=",
+											"_parent": {
+												"$ref": "AAAAAAGEV0Vuqpj8l4M="
+											},
+											"model": {
+												"$ref": "AAAAAAGEdcA1e/cxtuY="
+											},
+											"visible": false,
+											"font": "Arial;13;0",
+											"left": 333,
+											"top": 435,
+											"width": 230,
+											"height": 13,
+											"text": "+Port1",
+											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;13;0",
@@ -1261,13 +1281,47 @@
 											"height": 13,
 											"text": "+Load(): void",
 											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAGEdb/bDPGCnIc=",
+											"_parent": {
+												"$ref": "AAAAAAGEV0Vuqpj9Sfs="
+											},
+											"model": {
+												"$ref": "AAAAAAGEdb/a9/F/+q8="
+											},
+											"font": "Arial;13;0",
+											"left": 333,
+											"top": 520,
+											"width": 230,
+											"height": 13,
+											"text": "+LancerTimer(): void",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAGEdcBVCPjZGVQ=",
+											"_parent": {
+												"$ref": "AAAAAAGEV0Vuqpj9Sfs="
+											},
+											"model": {
+												"$ref": "AAAAAAGEdcBVAvjWbRE="
+											},
+											"font": "Arial;13;0",
+											"left": 333,
+											"top": 535,
+											"width": 230,
+											"height": 13,
+											"text": "+FinTimer(): void",
+											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 328,
 									"top": 438,
 									"width": 240,
-									"height": 85
+									"height": 115
 								},
 								{
 									"_type": "UMLReceptionCompartmentView",
@@ -2871,7 +2925,7 @@
 									"_parent": {
 										"$ref": "AAAAAAGEV0/FxZlBQU4="
 									},
-									"type": "Time",
+									"type": "void",
 									"direction": "return"
 								}
 							]
@@ -2976,6 +3030,15 @@
 								"$ref": "AAAAAAGEV0Vuqpj0pI0="
 							},
 							"name": "Attribute2",
+							"type": ""
+						},
+						{
+							"_type": "UMLPort",
+							"_id": "AAAAAAGEdcA1e/cxtuY=",
+							"_parent": {
+								"$ref": "AAAAAAGEV0Vuqpj0pI0="
+							},
+							"name": "Port1",
 							"type": ""
 						}
 					],
@@ -3126,6 +3189,44 @@
 									"_id": "AAAAAAGEV2GR0Zmwe8g=",
 									"_parent": {
 										"$ref": "AAAAAAGEV2Do4Jmp4Qo="
+									},
+									"type": "void",
+									"direction": "return"
+								}
+							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGEdb/a9/F/+q8=",
+							"_parent": {
+								"$ref": "AAAAAAGEV0Vuqpj0pI0="
+							},
+							"name": "LancerTimer",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGEdb/sKfIWwgg=",
+									"_parent": {
+										"$ref": "AAAAAAGEdb/a9/F/+q8="
+									},
+									"type": "void",
+									"direction": "return"
+								}
+							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGEdcBVAvjWbRE=",
+							"_parent": {
+								"$ref": "AAAAAAGEV0Vuqpj0pI0="
+							},
+							"name": "FinTimer",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGEdcDQ8vwDwEs=",
+									"_parent": {
+										"$ref": "AAAAAAGEdcBVAvjWbRE="
 									},
 									"type": "void",
 									"direction": "return"

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using programme;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -30,17 +31,14 @@ namespace MotMeles_v1 {
             Console.ReadKey();
         }
 
-        public static void LancerNouvellePartie() {
+        public static Jeu LancerNouvellePartie() {
             Console.Clear();
-            //Joueur[] joueurs = ListerJoueurs();
+            Joueur[] joueurs = ListerJoueurs();
             Dictionnaire dictionnaire = ChoisirLangue();
-            Console.Clear();
-            string str = "AB";
-            int unicode = Utile.GenererCodeUnicodeInverse(str);
-            Console.WriteLine(unicode);
-            Console.WriteLine(dictionnaire.RechercheDichotomiqueRecursive(dictionnaire.Mots[str.Length.ToString()], 0, dictionnaire.Mots.Count - 1, unicode));
+            ChoisirDifficulte();
             Console.WriteLine("En attente...");
             Console.ReadKey();
+            return new Jeu(dictionnaire, joueurs);
         }
 
         public static void ChargerPartie() {
@@ -48,18 +46,14 @@ namespace MotMeles_v1 {
             Console.ReadKey();
         }
 
-        public static Boolean EstNumerique(String entree, NumberStyles numberStyle) {
-            Boolean result = int.TryParse(entree, numberStyle, CultureInfo.CurrentCulture, out _);
-            return result;
-        }
-
         public static Joueur[] ListerJoueurs() {
+            Console.Clear();
             string combienDeJoueur;
             do {
                 Console.WriteLine("Veuillez sélectionner le nombre de joueur pour la nouvelle partie :\n");
                 combienDeJoueur = Console.ReadLine();
                 // tant que le nbr de joueur n'est pas bien renseigné et ou que ce n'est pas une valeur numérique
-            } while (combienDeJoueur == null || !EstNumerique(combienDeJoueur, NumberStyles.Number));
+            } while (combienDeJoueur == null || !Utile.EstNumerique(combienDeJoueur, NumberStyles.Number));
 
             int nbrDeJoueur = int.Parse(combienDeJoueur);
 
@@ -93,7 +87,7 @@ namespace MotMeles_v1 {
                     // première ligne = longueur des mots
                     // deuxième ligne = ensemble de mots
                     if (i % 2 == 0) {
-                        if (EstNumerique(lignes.ElementAt(i), NumberStyles.Number)) {
+                        if (Utile.EstNumerique(lignes.ElementAt(i), NumberStyles.Number)) {
                             key = lignes.ElementAt(i);
                         }
                     } else {
@@ -108,32 +102,46 @@ namespace MotMeles_v1 {
         }
 
         public static Dictionnaire ChoisirLangue() {
+            Console.Clear();
             ConsoleKeyInfo cki;
-            bool choixValide;
+            bool choixEnAttente;
             Dictionnaire dictionnaire = null;
             do {
-                choixValide = false;
-                Console.Clear();
+                choixEnAttente = false;
                 Console.WriteLine("Veuillez choisir une des langues ci-dessous :\n\n");
                 Console.WriteLine("1. Français\n2. Anglais\n");
                 cki = Console.ReadKey();
                 if (cki.Key == ConsoleKey.D1 || cki.Key == ConsoleKey.NumPad1) {
                     dictionnaire = ChargerDictionnaire(Constantes.cheminDicoFrancais, "Français");
                     if (dictionnaire == null) {
-                        choixValide = true;
+                        choixEnAttente = true;
                         Console.WriteLine("Le dictionnaire n'a pas chargé correctement");
                     }
                 } else if (cki.Key == ConsoleKey.D2 || cki.Key == ConsoleKey.NumPad2) {
                     dictionnaire = ChargerDictionnaire(Constantes.cheminDicoAnglais, "English");
                     if (dictionnaire == null) {
-                        choixValide = true;
+                        choixEnAttente = true;
                         Console.WriteLine("Le dictionnaire n'a pas chargé correctement");
                     }
                 } else {
-                    choixValide = true;
+                    choixEnAttente = true;
                 }
-            } while (choixValide);
+            } while (choixEnAttente);
             return dictionnaire;
+        }
+
+        public static void ChoisirDifficulte() {
+            Console.Clear();
+            Console.WriteLine("Veuillez choisir un niveau de difficulté parmis ceux proposés :");
+            string strDifficulte = Console.ReadLine();
+            bool estNumerique = Utile.EstNumerique(strDifficulte, NumberStyles.Integer);
+            int niveauDifficulte = int.Parse(strDifficulte);
+            while (!estNumerique || niveauDifficulte < 1 || niveauDifficulte > Constantes.descriptionNiveauDeDifficulte.Length) {
+                Console.WriteLine("Je n'ai pas compris.\nVeuillez choisir un niveau de difficulté parmis ceux proposés :");
+                strDifficulte = Console.ReadLine();
+                estNumerique = Utile.EstNumerique(strDifficulte, NumberStyles.Integer);
+                niveauDifficulte = int.Parse(strDifficulte);
+            }
         }
     }
 }

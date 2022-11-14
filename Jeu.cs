@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace programme {
     internal class Jeu {
-        /*private Dictionnaire dico;
+        private Dictionnaire dico;
         private Plateau[] plateaux;
         private Joueur[] joueurs;
 
-        public Jeu(Dictionnaire dico, Plateau[] plateaux, Joueur[] joueurs) {
+        public Jeu(Dictionnaire dico, Joueur[] joueurs, Plateau[] plateaux = null) {
             this.dico = dico;
-            this.plateaux = plateaux;
             this.joueurs = joueurs;
+            this.plateaux = plateaux;
         }
 
         public Dictionnaire Dico {
@@ -56,6 +56,6 @@ namespace programme {
 
         public void Enregistrer() {
 
-        }*/
+        }
     }
 }
