@@ -48,6 +48,21 @@ namespace programme {
 
         public void Jouer() {
             Console.WriteLine("La partie va commencer.");
+            for (int i = 0; i < this.plateaux.Length; i++) {
+                Plateau plateau = this.plateaux[i];
+                if (plateau == null) {
+                    plateau = new Plateau().Generer();
+                }
+
+                // On démarre le chrono
+                // ...
+
+                // si deux tours sont passés
+                // le "+1" est présent car on initialise à i = 0 i.e on commence par un chiffre pair
+                if (i % 2 == 0) {
+                    this.ProchainNiveau();
+                }
+            }
             Console.WriteLine("Fin de la partie");
             Console.ReadKey();
         }
