@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace MotMeles_v1
 {
@@ -19,6 +20,10 @@ namespace MotMeles_v1
             this.mots = mots;
             this.limite_temps = 300000; // en miliseconde
         }
+        public Plateau(string nomfile)
+        {
+            this.ToReadFile(nomfile);
+        }
 
         public int Niveau
         {
@@ -34,15 +39,19 @@ namespace MotMeles_v1
             get { return mots; }
             set { mots = value; }
         }
+        /// <summary>
+        /// Renvoie un string décrivant le Plateau
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
-            string resultat = "Niveau : " +niveau +"/n"+"Mots à trouver : ";
+            string resultat = "Niveau :"+niveau +"/n"+"Mots à trouver :"+"/n";
             for(int i = 0; i < mots.Length; i++)
             {
-                resultat = resultat + mots[i]+" ; ";
+                resultat = resultat + mots[i]+";";
             }
-            resultat += "/n";
-            for(int j = 0; j < lettres.GetLength(0); j++)
+            resultat += "/n"+"Plateau : "+"/n";
+            for(int j = 0; j < lettres.GetLength(0); j++) // creation de la partie
             {
                 resultat += ";";
                 for(int k = 0; k < lettres.GetLength(1); k++)
@@ -50,38 +59,88 @@ namespace MotMeles_v1
                     resultat += lettres[j,k] + ";";
                 }
                 resultat += "/n";
-
             }
             return resultat;
         }
-        public void ToFile(string nomfile) //Plus tard
+        /// <summary>
+        /// Cree un fichier à nomfile ou remplace un fichier déjà existant. Le fichier contient les information du Plateau
+        /// </summary>
+        /// <param name="nomfile"></param>
+        public void ToFile(string nomfile)
         {
-
-        }
-        public void ToReadFile(string nomfile) //en cours
-        {
-            string [] r = Utile.LireFichier(Constantes.cheminPlateau);
-            string[] r1 = r[0].Split(';');
-            string[] r2;
-            char[,] tab = null;
-            for(int i = 0; i < (int)char.Parse(r1[1]); i++)
+            try
             {
-                r2 =r[i+2].Split(';');
-                for(int j = 0; j < (int)char.Parse(r1[2]); j++)
+                StreamWriter sw = new StreamWriter(nomfile);
+                string ligne = "";
+                sw.WriteLine(this.niveau + ";" + this.lettres.GetLength(0) + ";" + this.lettres.GetLength(1) + ";" + this.mots.Length + ";");
+                ligne = string.Join(";",this.mots);
+                sw.WriteLine(ligne);
+                char[] tempo = new char[this.lettres.GetLength(0)];
+                for (int i = 0; i < this.lettres.GetLength(0); i++)
                 {
-                    tab[i,j] = char.Parse(r2[j]);
+                    for(int j=0; j < this.lettres.GetLength(1); j++)
+                    {
+                        tempo[i] = this.lettres[i, j];
+                    }
+                    ligne = string.Join(";", tempo);
+                    sw.WriteLine(ligne);
                 }
+                sw.Close();
             }
-
-            Plateau plate = new Plateau((int)char.Parse(r1[0]),tab, r[1].Split(';'));
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
+        /// <summary>
+        /// Crée un Plateau à partir d'un fichier txt existant
+        /// </summary>
+        /// <param name="nomfile"></param>
+        public void ToReadFile(string nomfile)
+        {
+            try
+            {
+                StreamReader sr = new StreamReader(nomfile);
+                string ligne = "";
+                ligne = sr.ReadLine();
+                string[] l1 = ligne.Split(';');
+                this.niveau = Convert.ToInt32(l1[0]);
+                ligne = sr.ReadLine();
+                string[] tempo = ligne.Split(';');
+                this.mots = tempo;
+                char[,] lettres = new char[(int)l1[1][0], (int)l1[2][0]];
+                for(int i = 0; i < lettres.GetLength(0); i++)
+                {
+                    ligne = sr.ReadLine();
+                    tempo = ligne.Split(';');
+                    for (int j=0; j < lettres.GetLength(1); j++)
+                    {
+                        lettres[i, j] = tempo[j][0];
+                    }
+                }
+                this.lettres = lettres;
+                sr.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+        /// <summary>
+        /// Vérifie si le mot trouvé existe et s'il est bien dans la position décrite dans le tableau
+        /// </summary>
+        /// <param name="mot"></param>
+        /// <param name="ligne"></param>
+        /// <param name="colone"></param>
+        /// <param name="direction"></param>
+        /// <returns></returns>
         public bool Test_Plateau(string mot, int ligne, int colone, string direction)
         {
             bool resultat = false;
             if (Dictionnaire.RechDicoRecursive(mot))
             {
                 int i = 0;
-                switch (direction)
+                switch (direction.ToUpper())
                 {
                     case "N":
                         while (i < mot.Length && ligne - i >=0)
@@ -139,7 +198,7 @@ namespace MotMeles_v1
                             i++;
                         }
                         break;
-                    case "S-E":
+                    case "SE":
                         while (i < mot.Length && colone+i<lettres.GetLength(1)&&ligne+i<lettres.GetLength(0))
                         {
                             if (mot[i] == lettres[ligne+i, colone + i] && i == mot.Length - 1)
@@ -153,7 +212,7 @@ namespace MotMeles_v1
                             i++;
                         }
                         break;
-                    case "N-E":
+                    case "NE":
                         while (i < mot.Length && colone + i < lettres.GetLength(1) && ligne - i >= 0)
                         {
                             if (mot[i] == lettres[ligne - i, colone + i] && i == mot.Length - 1)
@@ -167,7 +226,7 @@ namespace MotMeles_v1
                             i++;
                         }
                         break;
-                    case "N-O":
+                    case "NO":
                         while (i < mot.Length && colone - i >=0 && ligne - i >=0)
                         {
                             if (mot[i] == lettres[ligne - i, colone - i] && i == mot.Length - 1)
@@ -181,7 +240,7 @@ namespace MotMeles_v1
                             i++;
                         }
                         break;
-                    case "S-O":
+                    case "SO":
                         while (i < mot.Length && colone -i >= 0 && ligne + i < lettres.GetLength(0))
                         {
                             if (mot[i] == lettres[ligne + i, colone - i] && i == mot.Length - 1)
@@ -194,6 +253,8 @@ namespace MotMeles_v1
                             }
                             i++;
                         }
+                        break;
+                    default:
                         break;
                 }
             }
