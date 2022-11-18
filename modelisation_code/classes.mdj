@@ -343,7 +343,7 @@
 											"font": "Arial;13;1",
 											"left": 517,
 											"top": 135,
-											"width": 238,
+											"width": 291.52880859375,
 											"height": 13,
 											"text": "Dictionnaire"
 										},
@@ -378,7 +378,7 @@
 									"font": "Arial;13;0",
 									"left": 512,
 									"top": 128,
-									"width": 248,
+									"width": 301.52880859375,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAGESbHakKWXXyo="
@@ -415,7 +415,7 @@
 											"font": "Arial;13;0",
 											"left": 517,
 											"top": 158,
-											"width": 238,
+											"width": 291.52880859375,
 											"height": 13,
 											"text": "-langue: string",
 											"horizontalAlignment": 0
@@ -432,7 +432,7 @@
 											"font": "Arial;13;0",
 											"left": 517,
 											"top": 173,
-											"width": 238,
+											"width": 291.52880859375,
 											"height": 13,
 											"text": "-mots: Dictionary<string>",
 											"horizontalAlignment": 0
@@ -441,7 +441,7 @@
 									"font": "Arial;13;0",
 									"left": 512,
 									"top": 153,
-									"width": 248,
+									"width": 301.52880859375,
 									"height": 38
 								},
 								{
@@ -466,7 +466,7 @@
 											"font": "Arial;13;0",
 											"left": 517,
 											"top": 196,
-											"width": 238,
+											"width": 291.52880859375,
 											"height": 13,
 											"text": "+ToString(): string",
 											"horizontalAlignment": 0
@@ -483,17 +483,34 @@
 											"font": "Arial;13;0",
 											"left": 517,
 											"top": 211,
-											"width": 238,
+											"width": 291.52880859375,
 											"height": 13,
-											"text": "+RechDichoRecursif(string mot): bool",
+											"text": "+RechDichoRecursif(string mot, Parameter1): bool",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAGEi+sG5uZpgi8=",
+											"_parent": {
+												"$ref": "AAAAAAGESbHakqWcO1Q="
+											},
+											"model": {
+												"$ref": "AAAAAAGEi+sGx+ZmacA="
+											},
+											"font": "Arial;13;0",
+											"left": 517,
+											"top": 226,
+											"width": 291.52880859375,
+											"height": 13,
+											"text": "+ChargerDictionnaire(): Dictionary",
 											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 512,
 									"top": 191,
-									"width": 248,
-									"height": 38
+									"width": 301.52880859375,
+									"height": 53
 								},
 								{
 									"_type": "UMLReceptionCompartmentView",
@@ -532,7 +549,7 @@
 							"containerChangeable": true,
 							"left": 512,
 							"top": 128,
-							"width": 248,
+							"width": 301.52880859375,
 							"height": 136,
 							"nameCompartment": {
 								"$ref": "AAAAAAGESbHaj6WW7bk="
@@ -2396,6 +2413,7 @@
 											"model": {
 												"$ref": "AAAAAAGEZ5Xurh+n6ic="
 											},
+											"visible": false,
 											"font": "Arial;13;0",
 											"left": 317,
 											"top": 1059,
@@ -2409,7 +2427,7 @@
 									"left": 312,
 									"top": 979,
 									"width": 414.2568359375,
-									"height": 98
+									"height": 83
 								},
 								{
 									"_type": "UMLReceptionCompartmentView",
@@ -2716,6 +2734,34 @@
 										"$ref": "AAAAAAGEV0DKP5h1h90="
 									},
 									"type": "bool",
+									"direction": "return"
+								},
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGEi+rfAuX+jDU=",
+									"_parent": {
+										"$ref": "AAAAAAGEV0DKP5h1h90="
+									},
+									"name": "Parameter1",
+									"type": ""
+								}
+							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGEi+sGx+ZmacA=",
+							"_parent": {
+								"$ref": "AAAAAAGESbHaj6WT2eU="
+							},
+							"name": "ChargerDictionnaire",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGEi+sSe+brEXY=",
+									"_parent": {
+										"$ref": "AAAAAAGEi+sGx+ZmacA="
+									},
+									"type": "Dictionary",
 									"direction": "return"
 								}
 							]

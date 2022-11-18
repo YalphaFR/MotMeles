@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace MotMeles_v1 {
     internal class Program {
-        static void Main(string[] args) {
+        static void Main() {
             // Lancement du jeu complet uniquement à partir du menu
             Menu();
         }
@@ -23,9 +23,9 @@ namespace MotMeles_v1 {
                     "\n\nQue souhaitez-vous faire ? Veuillez utiliser les touches qui font référencent à des chiffres pour intéragir avec le jeu.");
                 cki = Console.ReadKey();
                 if (cki.Key == ConsoleKey.D1 || cki.Key == ConsoleKey.NumPad1) {
-                    partie = LancerNouvellePartie();
+                    partie = NouvellePartie();
                 } else if (cki.Key == ConsoleKey.D2 || cki.Key == ConsoleKey.NumPad2) {
-                    partie = ChargerPartie();
+                    //partie = ChargerPartie();
                 }
                 partie.Jouer();
             } while (cki.Key != ConsoleKey.Escape);
@@ -33,7 +33,7 @@ namespace MotMeles_v1 {
             Console.ReadKey();
         }
 
-        public static Jeu LancerNouvellePartie() {
+        public static Jeu NouvellePartie() {
             Console.Clear();
             Joueur[] joueurs = ListerJoueurs();
             Dictionnaire dictionnaire = ChoisirLangue();
@@ -43,7 +43,7 @@ namespace MotMeles_v1 {
             return new Jeu(dictionnaire, joueurs, plateaux);
         }
 
-        public static Jeu ChargerPartie() {
+        public static void ChargerPartie() {
             Console.WriteLine("En cours de réflexion...");
             Console.ReadKey();
         }
@@ -78,31 +78,6 @@ namespace MotMeles_v1 {
             return joueurs;
         }
 
-        public static Dictionnaire ChargerDictionnaire(string chemin, string langue) {
-            IEnumerable<string> lignes = Utile.LireFichier(chemin);
-            if (lignes != null) {
-                Dictionary<string, string[]> dictionary = new Dictionary<string, string[]>();
-                string key = null;
-                string[] value = null;
-                for (int i = 0; i < lignes.Count(); i++) {
-                    // voir fichier dictionnaire chargé
-                    // première ligne = longueur des mots
-                    // deuxième ligne = ensemble de mots
-                    if (i % 2 == 0) {
-                        if (Utile.EstNumerique(lignes.ElementAt(i), NumberStyles.Number)) {
-                            key = lignes.ElementAt(i);
-                        }
-                    } else {
-                        value = lignes.ElementAt(i).Split(' ');
-                        dictionary.Add(key, value);
-                    }
-                }
-                Dictionnaire dictionnaire = new Dictionnaire(langue, dictionary);
-                return dictionnaire;
-            }
-            return null;
-        }
-
         public static Dictionnaire ChoisirLangue() {
             Console.Clear();
             ConsoleKeyInfo cki;
@@ -114,14 +89,18 @@ namespace MotMeles_v1 {
                 Console.WriteLine("1. Français\n2. Anglais\n");
                 cki = Console.ReadKey();
                 if (cki.Key == ConsoleKey.D1 || cki.Key == ConsoleKey.NumPad1) {
-                    dictionnaire = ChargerDictionnaire(Constantes.cheminDicoFrancais, "Français");
-                    if (dictionnaire == null) {
+                    dictionnaire = new Dictionnaire("Français");
+                    dictionnaire.ChargerDictionnaire(Constantes.cheminDicoFrancais);
+                    Console.WriteLine(dictionnaire.ToString());
+                    Console.ReadKey();
+                    if (dictionnaire.Mots == null) {
                         choixEnAttente = true;
                         Console.WriteLine("Le dictionnaire n'a pas chargé correctement");
                     }
                 } else if (cki.Key == ConsoleKey.D2 || cki.Key == ConsoleKey.NumPad2) {
-                    dictionnaire = ChargerDictionnaire(Constantes.cheminDicoAnglais, "English");
-                    if (dictionnaire == null) {
+                    dictionnaire = new Dictionnaire("English");
+                    dictionnaire.ChargerDictionnaire(Constantes.cheminDicoAnglais);
+                    if (dictionnaire.Mots == null) {
                         choixEnAttente = true;
                         Console.WriteLine("Le dictionnaire n'a pas chargé correctement");
                     }

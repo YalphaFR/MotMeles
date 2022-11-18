@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,11 +9,10 @@ using System.Threading.Tasks;
 namespace MotMeles_v1 {
     internal class Dictionnaire {
         private string langue;
-        private Dictionary<string, string[]> mots;
+        private Dictionary<string, string[]> mots = null;
 
-        public Dictionnaire(string langue, Dictionary<string, string[]> mots) {
+        public Dictionnaire(string langue) {
             this.langue = langue;
-            this.mots = mots;
         }
 
         public string Langue {
@@ -21,7 +22,7 @@ namespace MotMeles_v1 {
 
         public Dictionary<string, string[]> Mots {
             get { return this.mots; }
-            set { this.Mots = value; }
+            set { this.mots = value; }
         }
 
         public override string ToString() {
@@ -57,6 +58,30 @@ namespace MotMeles_v1 {
                 return RechercheDichotomiqueRecursive(tableau, milieu + 1, j, unicodeMotCherche);
             }
             return mot;
+        }
+
+        public void ChargerDictionnaire(string chemin) {
+            StreamReader sr;
+            try {
+                sr = new StreamReader(chemin);
+                Dictionary<string, string[]> dic = new Dictionary<string, string[]>();
+                string ligne = null;
+                string key = null;
+                string[] value = null;
+                while (!sr.EndOfStream) {
+                    ligne = sr.ReadLine();
+                    if (Utile.EstNumerique(ligne, NumberStyles.Number)) {
+                            key = ligne;
+                    } else {
+                        value = ligne.Split(' ');
+                        dic.Add(key, value);
+                    }
+                }
+                this.mots = dic;
+                sr.Close();
+            } catch (Exception err) {
+                Console.WriteLine($"Une erreur est survenue : {err.Message}");
+            }
         }
     }
 }

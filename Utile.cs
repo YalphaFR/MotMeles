@@ -27,8 +27,8 @@ namespace MotMeles_v1 {
         
         public static IEnumerable<string> LireFichier(string chemin) {
             if (File.Exists(chemin)) {
-                IEnumerable<string> lignes = File.ReadLines(chemin);
-                return lignes;
+                IEnumerable<string> lines = File.ReadLines(chemin);
+                return lines;
             }
             return null;
         }
