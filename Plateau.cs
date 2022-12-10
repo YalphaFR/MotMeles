@@ -36,11 +36,16 @@ namespace MotMeles_v1
             get { return this.lettres; }
         }
         
-        private string[] Mots
+        public string[] Mots
         {
             get { return this.mots; }
             set { mots = value; }
         }
+
+        public int Limite_temps {
+            get {return this.Limite_temps; }
+        }
+
         /// <summary>
         /// Renvoie un string décrivant le Plateau
         /// </summary>
