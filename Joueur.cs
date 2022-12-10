@@ -36,18 +36,19 @@ namespace MotMeles_v1
             set { score = value; }
         }
         /// <summary>
-        /// Add_Mot rajoute un mot à la liste mots du Joueur
+        /// Ajoute le mot à la liste de mots trouvé parale joueur
         /// </summary>
-        /// <param name="mot"></param>
+        /// <param name="mot">le mot trouvé par l'utilisateur</param>
         
-        public void Add_Mot(string mot) //possibilité erreur avec liste
+        public void Add_Mot(string mot)
         {
             this.mots.Add(mot);
         }
+
         /// <summary>
-        /// Renvoie un string décrivant le Joueur
+        /// Renvoie une chaine de caractères décrivant le joueur
         /// </summary>
-        /// <returns></returns>
+        /// <returns>string</returns>
         public override string ToString()
         {
             string resultat = nom + " " + score + " points" + "/n" + "Mots trouvés : /n";

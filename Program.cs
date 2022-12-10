@@ -22,12 +22,16 @@ namespace MotMeles_v1 {
                     "\n2. Charger une partie" +
                     "\n\nQue souhaitez-vous faire ? Veuillez utiliser les touches qui font référencent à des chiffres pour intéragir avec le jeu.");
                 cki = Console.ReadKey();
-                if (cki.Key == ConsoleKey.D1 || cki.Key == ConsoleKey.NumPad1) {
-                    partie = NouvellePartie();
-                } else if (cki.Key == ConsoleKey.D2 || cki.Key == ConsoleKey.NumPad2) {
-                    //partie = ChargerPartie();
+                if (cki.Key != ConsoleKey.Escape) {
+                    if (cki.Key == ConsoleKey.D1 || cki.Key == ConsoleKey.NumPad1) {
+                        partie = NouvellePartie();
+                        partie.Jouer();
+                    } else if (cki.Key == ConsoleKey.D2 || cki.Key == ConsoleKey.NumPad2) {
+                        //partie = ChargerPartie();
+                    }
+                    partie.Jouer();
                 }
-                partie.Jouer();
+                
             } while (cki.Key != ConsoleKey.Escape);
             Console.WriteLine("Fin du programme");
             Console.ReadKey();
@@ -39,7 +43,8 @@ namespace MotMeles_v1 {
             Dictionnaire dictionnaire = ChoisirLangue();
             int niveauDifficulte = ChoisirDifficulte();
             int nbrDePlateauAGenerer = (Constantes.descriptionNiveauDeDifficulte.Length - (niveauDifficulte + 1)) * 2;
-            Plateau[] plateaux = new Plateau[niveauDifficulte];
+            Plateau plateau1 = new Plateau("Plateau/CasSimple.csv");
+            Plateau[] plateaux = new Plateau[] {plateau1};
             return new Jeu(dictionnaire, joueurs, plateaux);
         }
 
@@ -91,8 +96,6 @@ namespace MotMeles_v1 {
                 if (cki.Key == ConsoleKey.D1 || cki.Key == ConsoleKey.NumPad1) {
                     dictionnaire = new Dictionnaire("Français");
                     dictionnaire.ChargerDictionnaire(Constantes.cheminDicoFrancais);
-                    Console.WriteLine(dictionnaire.ToString());
-                    Console.ReadKey();
                     if (dictionnaire.Mots == null) {
                         choixEnAttente = true;
                         Console.WriteLine("Le dictionnaire n'a pas chargé correctement");
@@ -115,13 +118,19 @@ namespace MotMeles_v1 {
             Console.Clear();
             Console.WriteLine("Veuillez choisir un niveau de difficulté parmis ceux proposés :");
             string strDifficulte = Console.ReadLine();
+            // Régler une erreur ici
             bool estNumerique = Utile.EstNumerique(strDifficulte, NumberStyles.Integer);
-            int niveauDifficulte = int.Parse(strDifficulte);
+            int niveauDifficulte = 0;
+            if (estNumerique) {
+                niveauDifficulte = int.Parse(strDifficulte);
+            }
             while (!estNumerique || niveauDifficulte < 1 || niveauDifficulte > Constantes.descriptionNiveauDeDifficulte.Length) {
                 Console.WriteLine("Je n'ai pas compris.\nVeuillez choisir un niveau de difficulté parmis ceux proposés :");
                 strDifficulte = Console.ReadLine();
                 estNumerique = Utile.EstNumerique(strDifficulte, NumberStyles.Integer);
-                niveauDifficulte = int.Parse(strDifficulte);
+                if (estNumerique) {
+                    niveauDifficulte = int.Parse(strDifficulte);
+                }
             }
             return niveauDifficulte;
         }
