@@ -11,7 +11,7 @@ namespace programme {
         private Dictionnaire dico;
         private Plateau[] plateaux;
         private Joueur[] joueurs;
-        private static System.Timers.Timer chrono;
+        private System.Timers.Timer chrono;
 
         public Jeu(Dictionnaire dico, Joueur[] joueurs, Plateau[] plateaux) {
             this.dico = dico;
@@ -51,19 +51,24 @@ namespace programme {
         /// <returns>void</returns>
         public void Jouer() {
             Console.WriteLine("La partie va commencer.");
+
             for (int i = 0; i < this.plateaux.Length; i++) {
-                Plateau plateau = this.plateaux[i];
-                if (plateau == null) {
-                    throw new Exception($"Le {i}ème plateau est introuvable (null)");
+                for (int j = 0; i < this.plateaux.GetLength(i); j++) {
+                    Plateau plateau = this.plateaux[i, j];
+                    if (plateau == null) {
+                        throw new Exception($"Le {j}ème plateau du tour ${i} est introuvable (null)");
+                    }
+
+
+                    // On démarre le chrono
+                    this.chrono = SetTimer(plateau.Limite_temps);
+                    do {
+                        Console.WriteLine("\n" + plateau.ToString());
+                    } while (plateau.Mots.Length != );
+                    Console.WriteLine("Vous avez trouvé le mot :\n");
+                    string mot = Console.ReadLine();
+
                 }
-                Console.WriteLine("\n" + plateau.ToString());
-
-                // On démarre le chrono
-                SetTimer();
-                Console.WriteLine("Vous avez trouvé le mot :\n");
-                string mot = Console.ReadLine();
-                if (!this.dico.)
-
             }
             Console.WriteLine("Fin de la partie");
             Console.ReadKey();
