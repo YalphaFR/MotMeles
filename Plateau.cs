@@ -43,7 +43,7 @@ namespace MotMeles_v1
         }
 
         public int Limite_temps {
-            get {return this.Limite_temps; }
+            get {return this.limite_temps; }
         }
 
         /// <summary>
@@ -139,7 +139,7 @@ namespace MotMeles_v1
         /// <param name="colone"></param>
         /// <param name="direction"></param>
         /// <returns>bool</returns>
-        public bool Test_Plateau(string mot, int ligne, int colone, string direction)
+        public bool Test_Plateau(string mot, int ligne, int colonne, string direction)
         {
             bool resultat = false;
                 int i = 0;
@@ -148,11 +148,11 @@ namespace MotMeles_v1
                     case "N":
                         while (i < mot.Length && ligne - i >=0)
                         {
-                            if (mot[i] == lettres[ligne-i,colone] && i == mot.Length - 1)
+                            if (mot[i] == lettres[ligne-i, colonne] && i == mot.Length - 1)
                             {
                                 resultat = true;
                             }
-                            if(mot[i] != lettres[ligne - i, colone])
+                            if(mot[i] != lettres[ligne - i, colonne])
                             {
                                 break;
                             }
@@ -162,11 +162,11 @@ namespace MotMeles_v1
                     case "S":
                         while (i < mot.Length && ligne + i<lettres.GetLength(0))
                         {
-                            if (mot[i] == lettres[ligne + i, colone] && i == mot.Length - 1)
+                            if (mot[i] == lettres[ligne + i, colonne] && i == mot.Length - 1)
                             {
                                 resultat = true;
                             }
-                            if (mot[i] != lettres[ligne + i, colone])
+                            if (mot[i] != lettres[ligne + i, colonne])
                             {
                                 break;
                             }
@@ -174,13 +174,13 @@ namespace MotMeles_v1
                         }
                         break;
                     case "E":
-                        while (i < mot.Length && colone + i < lettres.GetLength(1))
+                        while (i < mot.Length && colonne + i < lettres.GetLength(1))
                         {
-                            if (mot[i] == lettres[ligne, colone+i] && i == mot.Length - 1)
+                            if (mot[i] == lettres[ligne, colonne+i] && i == mot.Length - 1)
                             {
                                 resultat = true;
                             }
-                            if (mot[i] != lettres[ligne, colone+i])
+                            if (mot[i] != lettres[ligne, colonne+i])
                             {
                                 break;
                             }
@@ -188,13 +188,13 @@ namespace MotMeles_v1
                         }
                         break;
                     case "O":
-                        while (i < mot.Length && colone - i >=0)
+                        while (i < mot.Length && colonne - i >=0)
                         {
-                            if (mot[i] == lettres[ligne, colone - i] && i == mot.Length - 1)
+                            if (mot[i] == lettres[ligne, colonne - i] && i == mot.Length - 1)
                             {
                                 resultat = true;
                             }
-                            if (mot[i] != lettres[ligne, colone - i])
+                            if (mot[i] != lettres[ligne, colonne - i])
                             {
                                 break;
                             }
@@ -202,13 +202,13 @@ namespace MotMeles_v1
                         }
                         break;
                     case "SE":
-                        while (i < mot.Length && colone+i<lettres.GetLength(1)&&ligne+i<lettres.GetLength(0))
+                        while (i < mot.Length && colonne+i<lettres.GetLength(1)&&ligne+i<lettres.GetLength(0))
                         {
-                            if (mot[i] == lettres[ligne+i, colone + i] && i == mot.Length - 1)
+                            if (mot[i] == lettres[ligne+i, colonne + i] && i == mot.Length - 1)
                             {
                                 resultat = true;
                             }
-                            if (mot[i] != lettres[ligne+i, colone + i])
+                            if (mot[i] != lettres[ligne+i, colonne + i])
                             {
                                 break;
                             }
@@ -216,13 +216,13 @@ namespace MotMeles_v1
                         }
                         break;
                     case "NE":
-                        while (i < mot.Length && colone + i < lettres.GetLength(1) && ligne - i >= 0)
+                        while (i < mot.Length && colonne + i < lettres.GetLength(1) && ligne - i >= 0)
                         {
-                            if (mot[i] == lettres[ligne - i, colone + i] && i == mot.Length - 1)
+                            if (mot[i] == lettres[ligne - i, colonne + i] && i == mot.Length - 1)
                             {
                                 resultat = true;
                             }
-                            if (mot[i] != lettres[ligne - i, colone + i])
+                            if (mot[i] != lettres[ligne - i, colonne + i])
                             {
                                 break;
                             }
@@ -230,13 +230,13 @@ namespace MotMeles_v1
                         }
                         break;
                     case "NO":
-                        while (i < mot.Length && colone - i >=0 && ligne - i >=0)
+                        while (i < mot.Length && colonne - i >=0 && ligne - i >=0)
                         {
-                            if (mot[i] == lettres[ligne - i, colone - i] && i == mot.Length - 1)
+                            if (mot[i] == lettres[ligne - i, colonne - i] && i == mot.Length - 1)
                             {
                                 resultat = true;
                             }
-                            if (mot[i] != lettres[ligne - i, colone - i])
+                            if (mot[i] != lettres[ligne - i, colonne - i])
                             {
                                 break;
                             }
@@ -244,13 +244,13 @@ namespace MotMeles_v1
                         }
                         break;
                     case "SO":
-                        while (i < mot.Length && colone -i >= 0 && ligne + i < lettres.GetLength(0))
+                        while (i < mot.Length && colonne -i >= 0 && ligne + i < lettres.GetLength(0))
                         {
-                            if (mot[i] == lettres[ligne + i, colone - i] && i == mot.Length - 1)
+                            if (mot[i] == lettres[ligne + i, colonne - i] && i == mot.Length - 1)
                             {
                                 resultat = true;
                             }
-                            if (mot[i] != lettres[ligne + i, colone - i])
+                            if (mot[i] != lettres[ligne + i, colonne - i])
                             {
                                 break;
                             }
@@ -261,6 +261,23 @@ namespace MotMeles_v1
                         break;
             }
             return resultat;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="nbrPlateau">Le nombre de plateau à générer pour un niveau</param>
+        /// <param name="niveau">le nombre de niveau souhaité (le maximum est 5)</param>
+        /// <param name="indiceDebut">L'indice qui représente le premier niveau auquel la génération des plateaux doit commencer</param>
+        /// <returns>Retourne un tableau à deux dimensions contenant les plateaux, par niveau, de chaque joueur</returns>
+        public static Plateau[,] GenererPlateaux(int nbrPlateau, int niveau, int indiceDebut = 0) {
+            Plateau[,] plateaux = new Plateau[nbrPlateau, niveau];
+            for (int i = indiceDebut; i < nbrPlateau; i++) {
+                for (int j = 0; j < niveau; j++) {
+                    plateaux[i, j] = new Plateau(i);
+                }
+            }
+            return plateaux;
         }
     }
 }
