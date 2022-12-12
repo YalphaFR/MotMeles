@@ -271,7 +271,7 @@ namespace MotMeles_v1
         /// <param name="indiceDebut">L'indice qui représente le premier niveau auquel la génération des plateaux doit commencer</param>
         /// <returns>Retourne un tableau à deux dimensions contenant les plateaux, par niveau, de chaque joueur</returns>
         public static Plateau[,] GenererPlateaux(int nbrPlateau, int niveau, int indiceDebut = 0) {
-            Plateau[,] plateaux = new Plateau[nbrPlateau, niveau];
+            Plateau[,] plateaux = new Plateau[niveau, nbrPlateau];
             for (int i = indiceDebut; i < nbrPlateau; i++) {
                 for (int j = 0; j < niveau; j++) {
                     plateaux[i, j] = new Plateau(i);
