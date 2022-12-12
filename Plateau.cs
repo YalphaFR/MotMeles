@@ -155,7 +155,7 @@ namespace MotMeles_v1
                                         mot = dico.Mots[cle.ToString()][m];
                                         for (int k = 0; k < mot.Length; k++)
                                         {
-                                            lettres[i, j + k] = mot[mot.Length - k - 1];
+                                            lettres[i, j - k] = mot[k];
                                         }
                                     }
 
@@ -169,7 +169,7 @@ namespace MotMeles_v1
                                         mot = dico.Mots[cle.ToString()][m];
                                         for (int k = 0; k < mot.Length; k++)
                                         {
-                                            lettres[i + k, j] = mot[mot.Length - 1 - k];
+                                            lettres[i - k, j] = mot[k];
                                         }
                                     }
                                 }
@@ -223,7 +223,7 @@ namespace MotMeles_v1
                                         mot = dico.Mots[cle.ToString()][m];
                                         for (int k = 0; k < mot.Length; k++)
                                         {
-                                            lettres[i, j + k] = mot[mot.Length - k - 1];
+                                            lettres[i, j - k] = mot[k];
                                         }
                                     }
 
@@ -237,7 +237,7 @@ namespace MotMeles_v1
                                         mot = dico.Mots[cle.ToString()][m];
                                         for (int k = 0; k < mot.Length; k++)
                                         {
-                                            lettres[i + k, j] = mot[mot.Length - 1 - k];
+                                            lettres[i - k, j] = mot[k];
                                         }
                                     }
                                 }
@@ -301,28 +301,28 @@ namespace MotMeles_v1
                                     }
                                     else if (direction == 2)
                                     {
-                                        cle = 10 - j;
+                                        cle = j + 1;
                                         if (cle > 1)
                                         {
                                             m = alea.Next(dico.Mots[cle.ToString()].Length);
                                             mot = dico.Mots[cle.ToString()][m];
                                             for (int k = 0; k < mot.Length; k++)
                                             {
-                                                lettres[i, j + k] = mot[mot.Length - k - 1];
+                                                lettres[i, j - k] = mot[k];
                                             }
                                         }
 
                                     }
                                     else if (direction == 3)
                                     {
-                                        cle = 10 - i;
+                                        cle = i + 1;
                                         if (cle > 1)
                                         {
                                             m = alea.Next(dico.Mots[cle.ToString()].Length);
                                             mot = dico.Mots[cle.ToString()][m];
                                             for (int k = 0; k < mot.Length; k++)
                                             {
-                                                lettres[i + k, j] = mot[mot.Length - 1 - k];
+                                                lettres[i - k, j] = mot[k];
                                             }
                                         }
                                     }
@@ -396,28 +396,28 @@ namespace MotMeles_v1
                                 }
                                 else if (direction == 2)
                                 {
-                                    cle = 10 - j;
+                                    cle = j + 1;
                                     if (cle > 1)
                                     {
                                         m = alea.Next(dico.Mots[cle.ToString()].Length);
                                         mot = dico.Mots[cle.ToString()][m];
                                         for (int k = 0; k < mot.Length; k++)
                                         {
-                                            lettres[i, j + k] = mot[mot.Length - k - 1];
+                                            lettres[i, j - k] = mot[k];
                                         }
                                     }
 
                                 }
                                 else if (direction == 3)
                                 {
-                                    cle = 10 - i;
+                                    cle = i + 1;
                                     if (cle > 1)
                                     {
                                         m = alea.Next(dico.Mots[cle.ToString()].Length);
                                         mot = dico.Mots[cle.ToString()][m];
                                         for (int k = 0; k < mot.Length; k++)
                                         {
-                                            lettres[i + k, j] = mot[mot.Length - 1 - k];
+                                            lettres[i - k, j] = mot[k];
                                         }
                                     }
                                 }
