@@ -81,7 +81,7 @@ namespace programme {
                         }
                         Console.WriteLine("Dans la direction :\n");
                         string direction = Console.ReadLine();
-                        if (plateau.Test_Plateau(mot, int.Parse(ligne), int.Parse(colonne), direction)) {
+                        if (plateau.Test_Plateau(mot, int.Parse(ligne), int.Parse(colonne), direction,dico)) {
                             Console.WriteLine("Vous avez trouvé le mot :\n");
                         }
                         Console.ReadKey();
