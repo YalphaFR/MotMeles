@@ -17,7 +17,7 @@ namespace MotMeles_v1
         private int limite_temps;
 
         /// <summary>
-        /// Construit un plateau de maniere akeatoire
+        /// Construit un plateau de maniere aleatoire
         /// </summary>
         /// <param name="niveau"></param>
         /// <param name="dico"></param>
@@ -25,7 +25,7 @@ namespace MotMeles_v1
         {
             this.niveau = niveau;
             this.lettres = GenPlateauAlea(niveau,dico);
-            this.mots = RechMot(this.lettres, dico);
+            this.mots = RechMot(niveau, this.lettres, dico);
             this.limite_temps = 300000; // en miliseconde
             
         }
@@ -47,6 +47,10 @@ namespace MotMeles_v1
         {
             get { return this.mots; }
             set { mots = value; }
+        }
+        public int Limite_temps
+        {
+            get { return this.limite_temps; }
         }
         /// <summary>
         /// Génère un tableau 2D de lettres de facon aléatoire à partir des mots d'un dictionnaire et en fonction du niveau
@@ -98,7 +102,6 @@ namespace MotMeles_v1
                                             lettres[i + k, j] = mot[k];
                                         }
                                     }
-
                                 }
 
                             }
@@ -476,37 +479,308 @@ namespace MotMeles_v1
                     }
                     break;
             }
-            for(int i = 0; i < lettres.GetLength(0); i++)
+            for (int i = 0; i < lettres.GetLength(0); i++)
             {
-                for(int j = 0; j < lettres.GetLength(1); j++)
+                for (int j = 0; j < lettres.GetLength(1); j++)
                 {
-                    if (lettres[i,j] == '0')
+                    if (lettres[i, j] == '0')
                     {
-                        lettres[i,j]= alphabet[alea.Next(26)];
+                        lettres[i, j] = alphabet[alea.Next(26)];
                     }
-                } 
+                }
             }
-            return(lettres);
+            return (lettres);
         }
+        
         /// <summary>
-        /// cree une liste de tout les mots present dans le tableaux correspondant à un mot du dictionnaire
+        /// cree une liste de tout les mots present dans le tableaux carré correspondant à un mot du dictionnaire
         /// </summary>
         /// <param name="tab"></param>
         /// <returns></returns>
-        private string[] RechMot(char[,] tab, Dictionnaire dico)
+        private string[] RechMot(int niveau, char[,] tab, Dictionnaire dico)
         {
-            List<string>mot1 = new List<string>();
-
+            List<string>listeMot1 = new List<string>();
+            string mot = "";
             //Rechercher tout les mots compris dans tab
-
-            string[] mot2 = new string[mot1.Count()];
-            int i = 0;
-            foreach(string e in mot1)
+            switch (niveau)
             {
-                mot2[i] = e;
-                i++;
+                case 1:
+                    for (int i = 0; i < tab.GetLength(0); i++)
+                    {
+                        for (int j = 0; j < tab.GetLength(1); j++)
+                        {
+                            for (int k = 0; k < tab.GetLength(1) - j; k++)
+                            {
+                                mot = mot + tab[i, k];
+                                if (dico.RechDichoRecursif(mot))
+                                {
+                                    listeMot1.Add(mot);
+                                }
+                            }
+                            mot = "";
+                            for (int k = 0; k < tab.GetLength(0) - i; k++)
+                            {
+                                mot = mot + tab[k, j];
+                                if (dico.RechDichoRecursif(mot))
+                                {
+                                    listeMot1.Add(mot);
+                                }
+                            }
+                            mot = "";
+                        }
+                    }
+                        break;
+                case 2:
+                    for (int i = 0; i < tab.GetLength(0); i++)
+                    {
+                        for (int j = 0; j < tab.GetLength(1); j++)
+                        {
+                            for (int k = 0; k < tab.GetLength(1) - j; k++)
+                            {
+                                mot = mot + tab[i, k];
+                                if (dico.RechDichoRecursif(mot))
+                                {
+                                    listeMot1.Add(mot);
+                                }
+                            }
+                            mot = "";
+                            for (int k = 0; k < tab.GetLength(0) - i; k++)
+                            {
+                                mot = mot + tab[k, j];
+                                if (dico.RechDichoRecursif(mot))
+                                {
+                                    listeMot1.Add(mot);
+                                }
+                            }
+                            mot = "";
+                            for (int k = j; k>=0; k--)
+                            {
+                                mot = mot + tab[i, k];
+                                if (dico.RechDichoRecursif(mot))
+                                {
+                                    listeMot1.Add(mot);
+                                }
+                            }
+                            mot = "";
+                            for (int k = i; k>=0; k--)
+                            {
+                                mot = mot + tab[k, j];
+                                if (dico.RechDichoRecursif(mot))
+                                {
+                                    listeMot1.Add(mot);
+                                }
+                            }
+                            mot = "";
+                        }
+                    }
+                    break;
+                case 3:
+                    for (int i = 0; i < tab.GetLength(0); i++)
+                    {
+                        for (int j = 0; j < tab.GetLength(1); j++)
+                        {
+                            for (int k = 0; k < tab.GetLength(1) - j; k++)
+                            {
+                                mot = mot + tab[i, k];
+                                if (dico.RechDichoRecursif(mot))
+                                {
+                                    listeMot1.Add(mot);
+                                }
+                            }
+                            mot = "";
+                            for (int k = 0; k < tab.GetLength(0) - i; k++)
+                            {
+                                mot = mot + tab[k, j];
+                                if (dico.RechDichoRecursif(mot))
+                                {
+                                    listeMot1.Add(mot);
+                                }
+                            }
+                            mot = "";
+                            for (int k = j; k >= 0; k--)
+                            {
+                                mot = mot + tab[i, k];
+                                if (dico.RechDichoRecursif(mot))
+                                {
+                                    listeMot1.Add(mot);
+                                }
+                            }
+                            mot = "";
+                            for (int k = i; k >= 0; k--)
+                            {
+                                mot = mot + tab[k, j];
+                                if (dico.RechDichoRecursif(mot))
+                                {
+                                    listeMot1.Add(mot);
+                                }
+                            }
+                            mot = "";
+                            for (int k =0;k<Math.Min(tab.GetLength(0),tab.GetLength(1)) - Math.Max(i,j); k++)
+                            {
+                                mot = mot + tab[i+k, j+k];
+                                if (dico.RechDichoRecursif(mot))
+                                {
+                                    listeMot1.Add(mot);
+                                }
+                            }
+                            mot = "";
+                        }
+                    }
+                    break;
+                case 4:
+                    for (int i = 0; i < tab.GetLength(0); i++)
+                    {
+                        for (int j = 0; j < tab.GetLength(1); j++)
+                        {
+                            for (int k = 0; k < tab.GetLength(1) - j; k++)
+                            {
+                                mot = mot + tab[i, k];
+                                if (dico.RechDichoRecursif(mot))
+                                {
+                                    listeMot1.Add(mot);
+                                }
+                            }
+                            mot = "";
+                            for (int k = 0; k < tab.GetLength(0) - i; k++)
+                            {
+                                mot = mot + tab[k, j];
+                                if (dico.RechDichoRecursif(mot))
+                                {
+                                    listeMot1.Add(mot);
+                                }
+                            }
+                            mot = "";
+                            for (int k = j; k >= 0; k--)
+                            {
+                                mot = mot + tab[i, k];
+                                if (dico.RechDichoRecursif(mot))
+                                {
+                                    listeMot1.Add(mot);
+                                }
+                            }
+                            mot = "";
+                            for (int k = i; k >= 0; k--)
+                            {
+                                mot = mot + tab[k, j];
+                                if (dico.RechDichoRecursif(mot))
+                                {
+                                    listeMot1.Add(mot);
+                                }
+                            }
+                            mot = "";
+                            for (int k = 0; k < Math.Min(tab.GetLength(0), tab.GetLength(1)) - Math.Max(i, j); k++)
+                            {
+                                mot = mot + tab[i + k, j + k];
+                                if (dico.RechDichoRecursif(mot))
+                                {
+                                    listeMot1.Add(mot);
+                                }
+                            }
+                            mot = "";
+                            for (int k = 0; k < Math.Min(tab.GetLength(0), tab.GetLength(1)) - Math.Max(tab.GetLength(0)-1-i, j); k++)
+                            {
+                                mot = mot + tab[i - k, j + k];
+                                if (dico.RechDichoRecursif(mot))
+                                {
+                                    listeMot1.Add(mot);
+                                }
+                            }
+                            mot = "";
+                        }
+                    }
+                    break;
+                case 5:
+                    for (int i = 0; i < tab.GetLength(0); i++)
+                    {
+                        for (int j = 0; j < tab.GetLength(1); j++)
+                        {
+                            for (int k = 0; k < tab.GetLength(1) - j; k++)
+                            {
+                                mot = mot + tab[i, k];
+                                if (dico.RechDichoRecursif(mot))
+                                {
+                                    listeMot1.Add(mot);
+                                }
+                            }
+                            mot = "";
+                            for (int k = 0; k < tab.GetLength(0) - i; k++)
+                            {
+                                mot = mot + tab[k, j];
+                                if (dico.RechDichoRecursif(mot))
+                                {
+                                    listeMot1.Add(mot);
+                                }
+                            }
+                            mot = "";
+                            for (int k = j; k >= 0; k--)
+                            {
+                                mot = mot + tab[i, k];
+                                if (dico.RechDichoRecursif(mot))
+                                {
+                                    listeMot1.Add(mot);
+                                }
+                            }
+                            mot = "";
+                            for (int k = i; k >= 0; k--)
+                            {
+                                mot = mot + tab[k, j];
+                                if (dico.RechDichoRecursif(mot))
+                                {
+                                    listeMot1.Add(mot);
+                                }
+                            }
+                            mot = "";
+                            for (int k = 0; k < Math.Min(tab.GetLength(0), tab.GetLength(1)) - Math.Max(i, j); k++)
+                            {
+                                mot = mot + tab[i + k, j + k];
+                                if (dico.RechDichoRecursif(mot))
+                                {
+                                    listeMot1.Add(mot);
+                                }
+                            }
+                            mot = "";
+                            for (int k = 0; k < Math.Min(tab.GetLength(0), tab.GetLength(1)) - Math.Max(tab.GetLength(0) - 1 - i, j); k++)
+                            {
+                                mot = mot + tab[i - k, j + k];
+                                if (dico.RechDichoRecursif(mot))
+                                {
+                                    listeMot1.Add(mot);
+                                }
+                            }
+                            mot = "";
+                            for (int k = 0; k < Math.Min(tab.GetLength(0), tab.GetLength(1)) - Math.Max(tab.GetLength(0)-1-i, tab.GetLength(1)-1-j); k++)
+                            {
+                                mot = mot + tab[i - k, j - k];
+                                if (dico.RechDichoRecursif(mot))
+                                {
+                                    listeMot1.Add(mot);
+                                }
+                            }
+                            mot = "";
+                            for (int k = 0; k < Math.Min(tab.GetLength(0), tab.GetLength(1)) - Math.Max( i, tab.GetLength(1) - 1 - j); k++)
+                            {
+                                mot = mot + tab[i + k, j - k];
+                                if (dico.RechDichoRecursif(mot))
+                                {
+                                    listeMot1.Add(mot);
+                                }
+                            }
+                            mot = "";
+                        }
+                    }
+                    break;
             }
-            return (mot2);
+            
+
+            //
+            string[] listeMot2 = new string[listeMot1.Count()];
+            int w = 0;
+            foreach(string e in listeMot1)
+            {
+                listeMot2[w] = e;
+                w++;
+            }
+            return (listeMot2);
         }
         /// <summary>
         /// Renvoie un string décrivant le Plateau
@@ -514,12 +788,12 @@ namespace MotMeles_v1
         /// <returns></returns>
         public override string ToString()
         {
-            string resultat = "Niveau :"+this.niveau +"/n"+"Mots à trouver :"+"/n";
+            string resultat = "Niveau :"+this.niveau +"\n"+"Mots à trouver :"+"\n";
             for(int i = 0; i < this.mots.Length; i++)
             {
                 resultat = resultat + this.mots[i]+";";
             }
-            resultat += "/n"+"Plateau : "+"/n";
+            resultat += "\n"+"Plateau : "+"\n";
             for(int j = 0; j < this.lettres.GetLength(0); j++) // creation de la partie
             {
                 resultat += ";";
@@ -527,7 +801,7 @@ namespace MotMeles_v1
                 {
                     resultat += $"{this.lettres[j, k]};";
                 }
-                resultat += "/n";
+                resultat += "\n";
             }
             return resultat;
         }
@@ -603,7 +877,7 @@ namespace MotMeles_v1
         /// <param name="colone"></param>
         /// <param name="direction"></param>
         /// <returns></returns>
-        public bool Test_Plateau(string mot, int ligne, int colone, string direction, Dictionnaire dico)
+        public bool Test_Plateau(string mot, int ligne, int colonne, string direction, Dictionnaire dico)
         {
             bool resultat = false;
             if (dico.RechDichoRecursif(mot))
@@ -614,11 +888,11 @@ namespace MotMeles_v1
                     case "N":
                         while (i < mot.Length && ligne - i >=0)
                         {
-                            if (mot[i] == lettres[ligne-i,colone] && i == mot.Length - 1)
+                            if (mot[i] == lettres[ligne-i, colonne] && i == mot.Length - 1)
                             {
                                 resultat = true;
                             }
-                            if(mot[i] != lettres[ligne - i, colone])
+                            if(mot[i] != lettres[ligne - i, colonne])
                             {
                                 break;
                             }
@@ -628,11 +902,11 @@ namespace MotMeles_v1
                     case "S":
                         while (i < mot.Length && ligne + i<lettres.GetLength(0))
                         {
-                            if (mot[i] == lettres[ligne + i, colone] && i == mot.Length - 1)
+                            if (mot[i] == lettres[ligne + i, colonne] && i == mot.Length - 1)
                             {
                                 resultat = true;
                             }
-                            if (mot[i] != lettres[ligne + i, colone])
+                            if (mot[i] != lettres[ligne + i, colonne])
                             {
                                 break;
                             }
@@ -640,13 +914,13 @@ namespace MotMeles_v1
                         }
                         break;
                     case "E":
-                        while (i < mot.Length && colone + i < lettres.GetLength(1))
+                        while (i < mot.Length && colonne + i < lettres.GetLength(1))
                         {
-                            if (mot[i] == lettres[ligne, colone+i] && i == mot.Length - 1)
+                            if (mot[i] == lettres[ligne, colonne+i] && i == mot.Length - 1)
                             {
                                 resultat = true;
                             }
-                            if (mot[i] != lettres[ligne, colone+i])
+                            if (mot[i] != lettres[ligne, colonne+i])
                             {
                                 break;
                             }
@@ -654,13 +928,13 @@ namespace MotMeles_v1
                         }
                         break;
                     case "O":
-                        while (i < mot.Length && colone - i >=0)
+                        while (i < mot.Length && colonne - i >=0)
                         {
-                            if (mot[i] == lettres[ligne, colone - i] && i == mot.Length - 1)
+                            if (mot[i] == lettres[ligne, colonne - i] && i == mot.Length - 1)
                             {
                                 resultat = true;
                             }
-                            if (mot[i] != lettres[ligne, colone - i])
+                            if (mot[i] != lettres[ligne, colonne - i])
                             {
                                 break;
                             }
@@ -668,13 +942,13 @@ namespace MotMeles_v1
                         }
                         break;
                     case "SE":
-                        while (i < mot.Length && colone+i<lettres.GetLength(1)&&ligne+i<lettres.GetLength(0))
+                        while (i < mot.Length && colonne+i<lettres.GetLength(1)&&ligne+i<lettres.GetLength(0))
                         {
-                            if (mot[i] == lettres[ligne+i, colone + i] && i == mot.Length - 1)
+                            if (mot[i] == lettres[ligne+i, colonne + i] && i == mot.Length - 1)
                             {
                                 resultat = true;
                             }
-                            if (mot[i] != lettres[ligne+i, colone + i])
+                            if (mot[i] != lettres[ligne+i, colonne + i])
                             {
                                 break;
                             }
@@ -682,13 +956,13 @@ namespace MotMeles_v1
                         }
                         break;
                     case "NE":
-                        while (i < mot.Length && colone + i < lettres.GetLength(1) && ligne - i >= 0)
+                        while (i < mot.Length && colonne + i < lettres.GetLength(1) && ligne - i >= 0)
                         {
-                            if (mot[i] == lettres[ligne - i, colone + i] && i == mot.Length - 1)
+                            if (mot[i] == lettres[ligne - i, colonne + i] && i == mot.Length - 1)
                             {
                                 resultat = true;
                             }
-                            if (mot[i] != lettres[ligne - i, colone + i])
+                            if (mot[i] != lettres[ligne - i, colonne + i])
                             {
                                 break;
                             }
@@ -696,13 +970,13 @@ namespace MotMeles_v1
                         }
                         break;
                     case "NO":
-                        while (i < mot.Length && colone - i >=0 && ligne - i >=0)
+                        while (i < mot.Length && colonne - i >=0 && ligne - i >=0)
                         {
-                            if (mot[i] == lettres[ligne - i, colone - i] && i == mot.Length - 1)
+                            if (mot[i] == lettres[ligne - i, colonne - i] && i == mot.Length - 1)
                             {
                                 resultat = true;
                             }
-                            if (mot[i] != lettres[ligne - i, colone - i])
+                            if (mot[i] != lettres[ligne - i, colonne - i])
                             {
                                 break;
                             }
@@ -710,13 +984,13 @@ namespace MotMeles_v1
                         }
                         break;
                     case "SO":
-                        while (i < mot.Length && colone -i >= 0 && ligne + i < lettres.GetLength(0))
+                        while (i < mot.Length && colonne -i >= 0 && ligne + i < lettres.GetLength(0))
                         {
-                            if (mot[i] == lettres[ligne + i, colone - i] && i == mot.Length - 1)
+                            if (mot[i] == lettres[ligne + i, colonne - i] && i == mot.Length - 1)
                             {
                                 resultat = true;
                             }
-                            if (mot[i] != lettres[ligne + i, colone - i])
+                            if (mot[i] != lettres[ligne + i, colonne - i])
                             {
                                 break;
                             }
@@ -728,6 +1002,24 @@ namespace MotMeles_v1
                 }
             }
             return resultat;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="nbrPlateau">Le nombre de plateau à générer pour un niveau</param>
+        /// <param name="niveau">le nombre de niveau souhaité (le maximum est 5)</param>
+        /// <param name="indiceDebut">L'indice qui représente le premier niveau auquel la génération des plateaux doit commencer</param>
+        /// <returns>Retourne un tableau à deux dimensions contenant les plateaux, par niveau, de chaque joueur</returns>
+        public static Plateau[,] GenererPlateaux(int nbrPlateau, int niveau, Dictionnaire dico, int indiceDebut = 0)
+        {
+            Plateau[,] plateaux = new Plateau[nbrPlateau, niveau];
+            for (int i = indiceDebut; i < nbrPlateau; i++) {
+                for (int j = 0; j < niveau; j++) {
+                    plateaux[i, j] = new Plateau(i,dico);
+                }
+            }
+            return plateaux;
         }
     }
 }

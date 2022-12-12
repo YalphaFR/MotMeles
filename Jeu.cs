@@ -5,15 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
+using System.Globalization;
 
 namespace programme {
     internal class Jeu {
         private Dictionnaire dico;
-        private Plateau[] plateaux;
         private Joueur[] joueurs;
+        private readonly Plateau[,] plateaux;
         private System.Timers.Timer chrono;
 
-        public Jeu(Dictionnaire dico, Joueur[] joueurs, Plateau[] plateaux) {
+        public Jeu(Dictionnaire dico, Joueur[] joueurs, Plateau[,] plateaux) {
             this.dico = dico;
             this.joueurs = joueurs;
             this.plateaux = plateaux;
@@ -22,11 +23,6 @@ namespace programme {
         public Dictionnaire Dico {
             get { return this.dico; }
             set { this.dico = value; }
-        }
-
-        public Plateau[] Plateaux {
-            get { return this.plateaux; }
-            set { this.plateaux = value; }
         }
 
         public Joueur[] Joueurs {
@@ -54,19 +50,45 @@ namespace programme {
 
             for (int i = 0; i < this.plateaux.Length; i++) {
                 for (int j = 0; i < this.plateaux.GetLength(i); j++) {
-                    Plateau plateau = this.plateaux[i, j];
+                    Plateau plateau = plateaux[i, j];
                     if (plateau == null) {
                         throw new Exception($"Le {j}ème plateau du tour ${i} est introuvable (null)");
                     }
-
+                    Joueur joueur = this.joueurs[j];
+                    Console.WriteLine($"C'est au tour du joueur {joueur.Nom} à jouer !");
+                    Console.ReadKey();
 
                     // On démarre le chrono
                     this.chrono = SetTimer(plateau.Limite_temps);
                     do {
+                        Console.Clear();
                         Console.WriteLine("\n" + plateau.ToString());
-                    } while (plateau.Mots.Length != );
-                    Console.WriteLine("Vous avez trouvé le mot :\n");
-                    string mot = Console.ReadLine();
+                        Console.WriteLine("Proposition de mot:\n");
+                        string mot = Console.ReadLine().ToUpper();
+                        Console.WriteLine("A partir de la ligne :\n");
+                        string ligne = Console.ReadLine();
+                        if (!Utile.EstNumerique(ligne, NumberStyles.Number)) {
+                            Console.WriteLine("La ligne renseignée est invalide");
+                            Console.ReadKey();
+                            continue;
+                        }
+                        Console.WriteLine("A partir de la colonne :\n");
+                        string colonne = Console.ReadLine();
+                        if (!Utile.EstNumerique(colonne, NumberStyles.Number)) {
+                            Console.WriteLine("La colonne renseignée est invalide");
+                            Console.ReadKey();
+                            continue;
+                        }
+                        Console.WriteLine("Dans la direction :\n");
+                        string direction = Console.ReadLine();
+                        if (plateau.Test_Plateau(mot, int.Parse(ligne), int.Parse(colonne), direction,dico)) {
+                            Console.WriteLine("Vous avez trouvé le mot :\n");
+                        }
+                        Console.ReadKey();
+                    } while (plateau.Mots.Length != joueur.Mots.Count && chrono.Enabled);
+                    if (chrono.Enabled) {
+                        chrono.Stop();
+                    }
 
                 }
             }
@@ -91,21 +113,10 @@ namespace programme {
         /// <returns>void</returns>
         private Timer SetTimer(int temps) {
             // Créer un timer à deux secondes d'intervalle
-            System.Timers.Timer nouveauChrono = new System.Timers.Timer(temps);
-            // Hook up the Elapsed event for the timer. 
-            nouveauChrono.Elapsed += OnTimedEvent;
+            Timer nouveauChrono = new Timer(temps);
             nouveauChrono.AutoReset = false;
-            nouveauChrono.Enabled = true;
+            nouveauChrono.Enabled = false;
             return nouveauChrono;
-        }
-
-        private void StopTimer(Timer chrono) {
-            chrono.Stop();
-        }
-
-        private void OnTimedEvent(Object source, ElapsedEventArgs e) {
-            Console.WriteLine("The Elapsed event was raised at {0:HH:mm:ss.fff}",
-                              e.SignalTime);
         }
     }
 }
