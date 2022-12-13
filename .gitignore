@@ -1,9 +1,9 @@
 .vs/
-bin/
-obj/
-Properties/
-App.config
-MotMeles_v1.csproj
-MotMeles_v1.sln
-modelisation_code/
+src/programme/.vs
+src/programme/bin
+src/programme/obj
+src/programme/Properties
+src/programme/App.config
+src/programme/programme.csproj
+src/programme/programme.sln
 packages/
