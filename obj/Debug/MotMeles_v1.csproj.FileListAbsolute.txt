@@ -1,8 +1,0 @@
-C:\Users\cleme\Desktop\Prépa\ESILV\informatique\projet_fin_semestre\MotMeles_v1\bin\Debug\MotMeles_v1.exe.config
-C:\Users\cleme\Desktop\Prépa\ESILV\informatique\projet_fin_semestre\MotMeles_v1\bin\Debug\MotMeles_v1.exe
-C:\Users\cleme\Desktop\Prépa\ESILV\informatique\projet_fin_semestre\MotMeles_v1\bin\Debug\MotMeles_v1.pdb
-C:\Users\cleme\Desktop\Prépa\ESILV\informatique\projet_fin_semestre\MotMeles_v1\obj\Debug\MotMeles_v1.csproj.AssemblyReference.cache
-C:\Users\cleme\Desktop\Prépa\ESILV\informatique\projet_fin_semestre\MotMeles_v1\obj\Debug\MotMeles_v1.csproj.SuggestedBindingRedirects.cache
-C:\Users\cleme\Desktop\Prépa\ESILV\informatique\projet_fin_semestre\MotMeles_v1\obj\Debug\MotMeles_v1.csproj.CoreCompileInputs.cache
-C:\Users\cleme\Desktop\Prépa\ESILV\informatique\projet_fin_semestre\MotMeles_v1\obj\Debug\MotMeles_v1.exe
-C:\Users\cleme\Desktop\Prépa\ESILV\informatique\projet_fin_semestre\MotMeles_v1\obj\Debug\MotMeles_v1.pdb
