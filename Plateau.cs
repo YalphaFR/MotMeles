@@ -19,8 +19,8 @@ namespace MotMeles_v1
         /// <summary>
         /// Construit un plateau de maniere aleatoire
         /// </summary>
-        /// <param name="niveau"></param>
-        /// <param name="dico"></param>
+        /// <param name="niveau">niveau à générer</param>
+        /// <param name="dico">dictionnaire de la langue de génération</param>
         public Plateau(int niveau, Dictionnaire dico)
         {
             this.niveau = niveau;
@@ -52,9 +52,8 @@ namespace MotMeles_v1
         /// <summary>
         /// Génère un tableau 2D de lettres de facon aléatoire à partir des mots d'un dictionnaire et en fonction du niveau
         /// </summary>
-        /// <param name="niv"></param>
-        /// <param name="dico"></param>
-        /// <returns></returns>
+        /// <param name="dico">Dictionnaire dans lequel les mots sont piochés<param>
+        /// <returns>retourne un plateaux généré aléatoirememnt</returns>
 
         private void GenererPlateauAleatoire(Dictionnaire dico)
         {
@@ -252,12 +251,12 @@ namespace MotMeles_v1
         /// <summary>
         /// Vérifie si un mot de taille longueur peut etre placé dans direction depuis la position i,j
         /// </summary>
-        /// <param name="longueur"></param>
-        /// <param name="direction"></param>
-        /// <param name="ligne"></param>
-        /// <param name="colonne"></param>
-        /// <param name="tab"></param>
-        /// <returns></returns>
+        /// <param name="longueur">longueur du mot</param>
+        /// <param name="direction">orientation du mot</param>
+        /// <param name="ligne">position de la première lettre selon la ligne</param>
+        /// <param name="colonne">position de la première lettre selon la colone</param>
+        /// <param name="tab">un tableau de letttre et/ou de caracteres vide</param>
+        /// <returns>Retourne vrai ou  faux selon si le mot de taille longueur chevauche ou non un autre mot</returns>
         private bool PlacementValide(int longueur, int direction, int ligne, int colonne, char[,] tab)
         {
             char[] charactVide = new char[1];
@@ -320,7 +319,7 @@ namespace MotMeles_v1
         /// <summary>
         /// Renvoie un string décrivant le Plateau
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Retounr un string du plateau</returns>
         public override string ToString()
         {
             string resultat = "Niveau :"+ this.niveau +"\n"+"Mots à trouver :"+"\n";
@@ -343,7 +342,7 @@ namespace MotMeles_v1
         /// <summary>
         /// Cree un fichier à nomfile ou remplace un fichier déjà existant. Le fichier contient les information du Plateau
         /// </summary>
-        /// <param name="nomfile"></param>
+        /// <param name="nomfile">chemin du fichier</param>
         public void ToFile(string nomfile)
         {
             try
@@ -373,7 +372,7 @@ namespace MotMeles_v1
         /// <summary>
         /// Crée un Plateau à partir d'un fichier txt existant
         /// </summary>
-        /// <param name="nomfile"></param>
+        /// <param name="nomfile">chemin du fichier</param> 
         public void ToReadFile(string nomfile)
         {
             try
@@ -407,11 +406,11 @@ namespace MotMeles_v1
         /// <summary>
         /// Vérifie si le mot trouvé existe et s'il est bien dans la position décrite dans le tableau
         /// </summary>
-        /// <param name="mot"></param>
-        /// <param name="ligne"></param>
-        /// <param name="colone"></param>
-        /// <param name="direction"></param>
-        /// <returns></returns>
+        /// <param name="mot">le mot  à vérifier</param> 
+        /// <param name="ligne">la position de la premiere lettre selon les lignes</param> 
+        /// <param name="colone">la position de la premiere lettre selon les colones</param> 
+        /// <param name="direction">orientation du mots</param>
+        /// <returns>Retourne un plateau creer à partir du fichie</returns>
         public bool Test_Plateau(string mot, int ligne, int colonne, string direction, Dictionnaire dico)
         {
             bool resultat = false;
@@ -532,13 +531,50 @@ namespace MotMeles_v1
                             i++;
                         }
                         break;
-                    default:
-                        break;
                 }
             }
             return resultat;
         }
-
+        /// <summary>
+        /// Remplace les caractères dans la direction choisis de la longueur du mot par des caractères ' '
+        /// </summary>
+        /// <param name="mot">Le mot à retirer</param> 
+        /// <param name="direction">son orientation</param> 
+        /// <param name="ligne">la position de la première lettre selon les lignes</param> 
+        /// <param name="colone">la position de la première lettre selon les colones</param> 
+        public void Vide(string mot, string direction,int ligne, int colone)
+        {
+            for(int i = 0; i < mot.Length; i++)
+            {
+                switch (direction)
+                {
+                    case "N":
+                        this.lettres[ligne,colone+i]=mot[i];
+                        break;
+                    case "S":
+                        this.lettres[ligne+i, colone] = mot[i];
+                        break;
+                    case "E":
+                        this.lettres[ligne, colone-i] = mot[i];
+                        break;
+                    case "O":
+                        this.lettres[ligne-i, colone] = mot[i];
+                        break;
+                    case "SE":
+                        this.lettres[ligne+i, colone + i] = mot[i];
+                        break;
+                    case "NE":
+                        this.lettres[ligne-i, colone + i] = mot[i];
+                        break;
+                    case "NO":
+                        this.lettres[ligne-i, colone - i] = mot[i];
+                        break;
+                    case "SO":
+                        this.lettres[ligne + i, colone - i] = mot[i];
+                        break;
+                }
+            }
+        }
         /// <summary>
         /// 
         /// </summary>
