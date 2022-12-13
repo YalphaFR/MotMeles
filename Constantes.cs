@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace MotMeles_v1 {
     internal class Constantes {
-        public static readonly string cheminDicoFrancais = "Dictionnaire\\MotsPossiblesFR.txt";
-        public static readonly string cheminDicoAnglais = "Dictionnaire\\MotsPossiblesEN.txt";
+        public static readonly string cheminDicoFrancais = "Dictionnaires\\MotsPossiblesFR.txt";
+        public static readonly string cheminDicoAnglais = "Dictionnaires\\MotsPossiblesEN.txt";
         public static readonly string[] descriptionNiveauDeDifficulte = new string[] 
         {
             "les mots sont situés sur les lignes de gauche à droite et sur les colonnes de haut en bas",

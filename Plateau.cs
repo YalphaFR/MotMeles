@@ -9,7 +9,7 @@ using System.Diagnostics;
 
 namespace MotMeles_v1
 {
-    internal class Plateau
+    public class Plateau
     {
         private int niveau;
         private char[,] lettres = null;
@@ -25,9 +25,8 @@ namespace MotMeles_v1
         {
             this.niveau = niveau;
             this.lettres = GenererPlateauAleatoire(niveau,dico);
-            this.mots = RechMot(niveau, this.lettres, dico);
+            this.mots = RechMot(niveau, lettres, dico);
             this.limite_temps = 300000; // en miliseconde
-            
         }
         public Plateau(string nomfile)
         {

@@ -27,9 +27,9 @@ namespace MotMeles_v1 {
                         partie = NouvellePartie();
                         partie.Jouer();
                     } else if (cki.Key == ConsoleKey.D2 || cki.Key == ConsoleKey.NumPad2) {
-                        //partie = ChargerPartie();
+                        partie = ChargerPartie();
                     }
-                    //partie.Jouer();
+                    partie.Jouer();
                 }
             } while (cki.Key != ConsoleKey.Escape);
             Console.WriteLine("Fin du programme");
@@ -41,16 +41,18 @@ namespace MotMeles_v1 {
             Joueur[] joueurs = ListerJoueurs();
             Dictionnaire dictionnaire = ChoisirLangue();
             int niveauDifficulte = ChoisirDifficulte();
-            Plateau[,] plateaux = Plateau.GenererPlateaux(joueurs.Length, 5, dictionnaire);
+            Plateau[,] plateaux = Plateau.GenererPlateaux(joueurs.Length, 5, dictionnaire, niveauDifficulte);
             foreach (Plateau p in plateaux) {
                 Console.WriteLine(p.ToString());
             }
             return new Jeu(dictionnaire, joueurs, plateaux);
         }
 
-        public static void ChargerPartie() {
-            Console.WriteLine("En cours de réflexion...");
-            Console.ReadKey();
+        public static Jeu ChargerPartie() {
+            Console.Clear();
+
+
+            return new Jeu(dictionnaire, joueurs, plateaux);
         }
 
         public static Joueur[] ListerJoueurs() {

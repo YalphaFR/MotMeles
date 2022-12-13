@@ -8,7 +8,7 @@ using System.Timers;
 using System.Globalization;
 
 namespace programme {
-    internal class Jeu {
+    public class Jeu {
         private Dictionnaire dico;
         private Joueur[] joueurs;
         private readonly Plateau[,] plateaux;

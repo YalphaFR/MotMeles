@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MotMeles_v1 {
-    internal class Dictionnaire {
+    public class Dictionnaire {
         private string langue;
         private Dictionary<string, string[]> mots = null;
 
