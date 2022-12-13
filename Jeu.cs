@@ -1,5 +1,4 @@
-﻿using MotMeles_v1;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +6,7 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Globalization;
 
-namespace programme {
+namespace MotMeles_v1 {
     public class Jeu {
         private Dictionnaire dico;
         private Joueur[] joueurs;
