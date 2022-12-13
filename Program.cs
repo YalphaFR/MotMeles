@@ -22,38 +22,50 @@ namespace MotMeles_v1 {
                     "\n2. Charger une partie" +
                     "\n\nQue souhaitez-vous faire ? Veuillez utiliser les touches qui font référencent à des chiffres pour intéragir avec le jeu.");
                 cki = Console.ReadKey();
-                if (cki.Key != ConsoleKey.Escape) {
-                    if (cki.Key == ConsoleKey.D1 || cki.Key == ConsoleKey.NumPad1) {
-                        partie = NouvellePartie();
+                try {
+                    if (cki.Key != ConsoleKey.Escape) {
+                        if (cki.Key == ConsoleKey.D1 || cki.Key == ConsoleKey.NumPad1) {
+                            partie = NouvellePartie();
+                        } else if (cki.Key == ConsoleKey.D2 || cki.Key == ConsoleKey.NumPad2) {
+                            //partie = ChargerPartie();
+                        } else {
+                            continue;
+                        }
                         partie.Jouer();
-                    } else if (cki.Key == ConsoleKey.D2 || cki.Key == ConsoleKey.NumPad2) {
-                        partie = ChargerPartie();
                     }
-                    partie.Jouer();
+                } catch (Exception err) {
+                    Console.WriteLine("Une erreur est survenue :\n" + err.Message);
                 }
             } while (cki.Key != ConsoleKey.Escape);
             Console.WriteLine("Fin du programme");
             Console.ReadKey();
         }
 
+        /// <summary>
+        /// Génére des balises de renseignement d'information à l'utilisateur pour le bon fonctionnement du jeu
+        /// </summary>
+        /// <returns>Une instance de la classe Jeu avec toutes les valeurs par défaut</returns>
         public static Jeu NouvellePartie() {
             Console.Clear();
             Joueur[] joueurs = ListerJoueurs();
             Dictionnaire dictionnaire = ChoisirLangue();
             int niveauDifficulte = ChoisirDifficulte();
-            Plateau[,] plateaux = Plateau.GenererPlateaux(joueurs.Length, 5, dictionnaire, niveauDifficulte);
-            foreach (Plateau p in plateaux) {
-                Console.WriteLine(p.ToString());
-            }
+            Plateau[,] plateaux = Plateau.GenererPlateaux(joueurs.Length, Constantes.descriptionNiveauDeDifficulte.Length, dictionnaire, niveauDifficulte);
             return new Jeu(dictionnaire, joueurs, plateaux);
         }
 
-        public static Jeu ChargerPartie() {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>Une instance </returns>
+        /*public static Jeu ChargerPartie() {
             Console.Clear();
-
+            Dictionnaire dictionnaire = Dictionnaire();
+            Joueur[] 
+            
 
             return new Jeu(dictionnaire, joueurs, plateaux);
-        }
+        }*/
 
         public static Joueur[] ListerJoueurs() {
             Console.Clear();

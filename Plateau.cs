@@ -24,8 +24,8 @@ namespace MotMeles_v1
         public Plateau(int niveau, Dictionnaire dico)
         {
             this.niveau = niveau;
-            this.GenererPlateauAleatoire(niveau,dico);
-            this.limite_temps = 300000; // en miliseconde
+            this.GenererPlateauAleatoire(dico);
+            this.limite_temps = 1000 * 60;//300000; // en miliseconde
         }
         public Plateau(string nomfile)
         {
@@ -44,7 +44,6 @@ namespace MotMeles_v1
         public string[] Mots
         {
             get { return this.mots; }
-            set { mots = value; }
         }
         public int Limite_temps
         {
@@ -57,7 +56,7 @@ namespace MotMeles_v1
         /// <param name="dico"></param>
         /// <returns></returns>
 
-        private void GenererPlateauAleatoire(int niv, Dictionnaire dico)
+        private void GenererPlateauAleatoire(Dictionnaire dico)
         {
             char[] charactVide = new char[1];
             Random alea = new Random();
@@ -72,7 +71,7 @@ namespace MotMeles_v1
             {
                 for (int j = 0; j < 10; j++)
                 {
-                    switch (niveau)
+                    switch (this.niveau)
                     {
                         case 1:
                             direction = alea.Next(2);
@@ -327,15 +326,15 @@ namespace MotMeles_v1
             string resultat = "Niveau :"+ this.niveau +"\n"+"Mots à trouver :"+"\n";
             for(int i = 0; i < this.mots.Length; i++)
             {
-                resultat = resultat + this.mots[i]+";";
+                resultat = resultat + this.mots[i]+"|";
             }
             resultat += "\n"+"Plateau : "+"\n";
             for(int j = 0; j < this.lettres.GetLength(0); j++) // creation de la partie
             {
-                resultat += ";";
+                resultat += "\t\t\t\t\t\t\t|";
                 for(int k = 0; k < this.lettres.GetLength(1); k++)
                 {
-                    resultat += $"{this.lettres[j, k]};";
+                    resultat += $" {this.lettres[j, k]} |";
                 }
                 resultat += "\n";
             }
@@ -547,11 +546,11 @@ namespace MotMeles_v1
         /// <param name="niveau">le nombre de niveau souhaité (le maximum est 5)</param>
         /// <param name="indiceDebut">L'indice qui représente le premier niveau auquel la génération des plateaux doit commencer</param>
         /// <returns>Retourne un tableau à deux dimensions contenant les plateaux, par niveau, de chaque joueur</returns>
-        public static Plateau[,] GenererPlateaux(int nbrPlateau, int niveau, Dictionnaire dico, int indiceDebut = 0) {
+        public static Plateau[,] GenererPlateaux(int nbrPlateau, int niveau, Dictionnaire dico, int indiceDebut = 1) {
             Plateau[,] plateaux = new Plateau[niveau, nbrPlateau];
-            for (int i = indiceDebut; i < niveau; i++) {
+            for (int i = indiceDebut; i < niveau + 1; i++) {
                 for (int j = 0; j < nbrPlateau; j++) {
-                    plateaux[i, j] = new Plateau(i, dico);
+                    plateaux[niveau - i, j] = new Plateau(i, dico);
                 }
             }
             return plateaux;

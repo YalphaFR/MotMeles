@@ -17,12 +17,10 @@ namespace MotMeles_v1 {
 
         public string Langue {
             get { return this.langue; }
-            set { this.langue = value; }
         }
 
         public Dictionary<string, string[]> Mots {
             get { return this.mots; }
-            set { this.mots = value; }
         }
 
         public override string ToString() {

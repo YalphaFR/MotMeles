@@ -49,7 +49,7 @@ namespace programme {
             Console.WriteLine("La partie va commencer.");
 
             for (int i = 0; i < this.plateaux.Length; i++) {
-                for (int j = 0; i < this.plateaux.GetLength(i); j++) {
+                for (int j = 0; j < this.plateaux.GetLength(i); j++) {
                     Plateau plateau = plateaux[i, j];
                     if (plateau == null) {
                         throw new Exception($"Le {j}ème plateau du tour ${i} est introuvable (null)");
@@ -63,7 +63,7 @@ namespace programme {
                     do {
                         Console.Clear();
                         Console.WriteLine("\n" + plateau.ToString());
-                        Console.WriteLine("Proposition de mot:\n");
+                        Console.WriteLine("Proposition de mot :\n");
                         string mot = Console.ReadLine().ToUpper();
                         Console.WriteLine("A partir de la ligne :\n");
                         string ligne = Console.ReadLine();
@@ -72,6 +72,7 @@ namespace programme {
                             Console.ReadKey();
                             continue;
                         }
+
                         Console.WriteLine("A partir de la colonne :\n");
                         string colonne = Console.ReadLine();
                         if (!Utile.EstNumerique(colonne, NumberStyles.Number)) {
@@ -79,20 +80,28 @@ namespace programme {
                             Console.ReadKey();
                             continue;
                         }
+
                         Console.WriteLine("Dans la direction :\n");
                         string direction = Console.ReadLine();
-                        if (plateau.Test_Plateau(mot, int.Parse(ligne), int.Parse(colonne), direction,dico)) {
-                            Console.WriteLine("Vous avez trouvé le mot :\n");
+                        if (plateau.Test_Plateau(mot, int.Parse(ligne) - 1, int.Parse(colonne) - 1, direction, dico)) {
+                            joueur.Add_Mot(mot);
+                            joueur.AugmenterScore();
+                            Console.WriteLine("Vous avez trouvé le mot !");
+                        } else {
+                            Console.WriteLine("Le mot n'est pas présent à l'endroit indiqué !");
                         }
+
                         Console.ReadKey();
                     } while (plateau.Mots.Length != joueur.Mots.Count && chrono.Enabled);
                     if (chrono.Enabled) {
                         chrono.Stop();
                     }
-
+                    Console.WriteLine(joueur.ToString());
+                    Console.ReadKey();
                 }
             }
             Console.WriteLine("Fin de la partie");
+            this.AfficherScore();
             Console.ReadKey();
         }
 
@@ -115,7 +124,7 @@ namespace programme {
             // Créer un timer à deux secondes d'intervalle
             Timer nouveauChrono = new Timer(temps);
             nouveauChrono.AutoReset = false;
-            nouveauChrono.Enabled = false;
+            nouveauChrono.Enabled = true;
             return nouveauChrono;
         }
     }

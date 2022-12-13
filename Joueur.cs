@@ -11,8 +11,14 @@ namespace MotMeles_v1
         private string nom;
         private List<string> mots; //possibilité erreur avec liste
         private int score;
-        public Joueur(string nom, List<string> mots = null, int score = 0)
+        public Joueur(string nom)
         {
+            this.nom = nom;
+            this.mots = new List<string>();
+            this.score = 0;
+        }
+
+        public Joueur(string nom, List<string> mots = null, int score = 0) {
             this.nom = nom;
             this.mots = mots;
             this.score = score;
@@ -20,26 +26,23 @@ namespace MotMeles_v1
 
         public string Nom
         {
-            get { return nom; }
-            set { nom = value; }
+            get { return this.nom; }
         }
 
         public List<string> Mots //possibilité erreur avec liste
         {
-            get { return mots; }
-            set { mots = value; }
+            get { return this.mots; }
         }
 
         public int Score
         {
-            get { return score; }
-            set { score = value; }
+            get { return this.score; }
         }
         /// <summary>
         /// Add_Mot rajoute un mot à la liste mots du Joueur
         /// </summary>
         /// <param name="mot"></param>
-        public void Add_Mot(string mot) //possibilité erreur avec liste
+        public void Add_Mot(string mot)
         {
             this.mots.Add(mot);
         }
@@ -49,12 +52,11 @@ namespace MotMeles_v1
         /// <returns></returns>
         public override string ToString()
         {
-            string resultat = nom + " " + score + " points" + "/n" + "Mots trouvés : /n";
-            foreach (var mot in this.mots)
-            {
-                resultat = resultat + mots + "/n";
-            }
-            return resultat;
+            return $"{this.nom}\nScore : {this.score} points\nMots trouvés :\n {String.Join(" ; ", this.mots)}";
+        }
+
+        public void AugmenterScore() {
+            this.score += 1;
         }
     }
 }
