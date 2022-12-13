@@ -14,7 +14,7 @@ namespace MotMeles_v1
         private int niveau;
         private char[,] lettres = null;
         private string[] mots;
-        private int limite_temps;
+        readonly private int limite_temps;
 
         /// <summary>
         /// Construit un plateau de maniere aleatoire
@@ -24,8 +24,7 @@ namespace MotMeles_v1
         public Plateau(int niveau, Dictionnaire dico)
         {
             this.niveau = niveau;
-            this.lettres = GenererPlateauAleatoire(niveau,dico);
-            this.mots = RechMot(niveau, lettres, dico);
+            this.GenererPlateauAleatoire(niveau,dico);
             this.limite_temps = 300000; // en miliseconde
         }
         public Plateau(string nomfile)
@@ -57,729 +56,267 @@ namespace MotMeles_v1
         /// <param name="niv"></param>
         /// <param name="dico"></param>
         /// <returns></returns>
-        private char[,] GenererPlateauAleatoire(int niv, Dictionnaire dico)
+
+        private void GenererPlateauAleatoire(int niv, Dictionnaire dico)
         {
+            char[] charactVide = new char[1];
             Random alea = new Random();
+            char[,] lettres = new char[10, 10];
             char[] alphabet = new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
             string mot;
+            List<string> mots1 = new List<string>();
             int cle;
-            int m;
-            int direction;
-            char[,] lettres = new char[10, 10];
-            switch (niv)
+            int rdm;
+            int direction = 0;
+            for (int i = 0; i < 10; i++)
             {
-                case 1:
-                    for (int i = 0; i < 10; i++)
-                    {
-                        for (int j = 0; j < 10; j++)
-                        {
-                            if (lettres[i, j] == '\0')
-                            {
-                                direction = alea.Next(2);
-                                if (direction == 0)
-                                {
-                                    cle = 10 - j;
-                                    if (cle > 1)
-                                    {
-                                        m = alea.Next(dico.Mots[cle.ToString()].Length);
-                                        mot = dico.Mots[cle.ToString()][m];
-                                        for (int k = 0; k < mot.Length; k++)
-                                        {
-                                            lettres[i, j + k] = mot[k];
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    cle = 10 - i;
-                                    if (cle > 1)
-                                    {
-                                        m = alea.Next(dico.Mots[cle.ToString()].Length);
-                                        mot = dico.Mots[cle.ToString()][m];
-                                        for (int k = 0; k < mot.Length; k++)
-                                        {
-                                            lettres[i + k, j] = mot[k];
-                                        }
-                                    }
-                                }
-
-                            }
-                        }
-
-                    }
-
-                    break;
-                case 2:
-                    for (int i = 0; i < 10; i++)
-                    {
-                        for (int j = 0; j < 10; j++)
-                        {
-                            if (lettres[i, j] == '\0')
-                            {
-                                direction = alea.Next(4);
-                                if (direction == 0)
-                                {
-                                    cle = 10 - j;
-                                    if (cle > 1)
-                                    {
-                                        m = alea.Next(dico.Mots[cle.ToString()].Length);
-                                        mot = dico.Mots[cle.ToString()][m];
-                                        for (int k = 0; k < mot.Length; k++)
-                                        {
-                                            lettres[i, j + k] = mot[k];
-                                        }
-                                    }
-
-                                }
-                                else if (direction == 1)
-                                {
-                                    cle = 10 - i;
-                                    if (cle > 1)
-                                    {
-                                        m = alea.Next(dico.Mots[cle.ToString()].Length);
-                                        mot = dico.Mots[cle.ToString()][m];
-                                        for (int k = 0; k < mot.Length; k++)
-                                        {
-                                            lettres[i + k, j] = mot[k];
-                                        }
-                                    }
-
-                                }
-                                else if (direction == 2)
-                                {
-                                    cle = 10 - j;
-                                    if (cle > 1)
-                                    {
-                                        m = alea.Next(dico.Mots[cle.ToString()].Length);
-                                        mot = dico.Mots[cle.ToString()][m];
-                                        for (int k = 0; k < mot.Length; k++)
-                                        {
-                                            lettres[i, j - k] = mot[k];
-                                        }
-                                    }
-
-                                }
-                                else if (direction == 3)
-                                {
-                                    cle = 10 - i;
-                                    if (cle > 1)
-                                    {
-                                        m = alea.Next(dico.Mots[cle.ToString()].Length);
-                                        mot = dico.Mots[cle.ToString()][m];
-                                        for (int k = 0; k < mot.Length; k++)
-                                        {
-                                            lettres[i - k, j] = mot[k];
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    break;
-                case 3:
-                    for (int i = 0; i < 10; i++)
-                    {
-                        for (int j = 0; j < 10; j++)
-                        {
-                            if (lettres[i, j] == '\0')
-                            {
-                                direction = alea.Next(5);
-                                if (direction == 0)
-                                {
-                                    cle = 10 - j;
-                                    if (cle > 1)
-                                    {
-                                        m = alea.Next(dico.Mots[cle.ToString()].Length);
-                                        mot = dico.Mots[cle.ToString()][m];
-                                        for (int k = 0; k < mot.Length; k++)
-                                        {
-                                            lettres[i, j + k] = mot[k];
-                                        }
-                                    }
-
-                                }
-                                else if (direction == 1)
-                                {
-                                    cle = 10 - i;
-                                    if (cle > 1)
-                                    {
-                                        m = alea.Next(dico.Mots[cle.ToString()].Length);
-                                        mot = dico.Mots[cle.ToString()][m];
-                                        for (int k = 0; k < mot.Length; k++)
-                                        {
-                                            lettres[i + k, j] = mot[k];
-                                        }
-                                    }
-
-                                }
-                                else if (direction == 2)
-                                {
-                                    cle = 10 - j;
-                                    if (cle > 1)
-                                    {
-                                        m = alea.Next(dico.Mots[cle.ToString()].Length);
-                                        mot = dico.Mots[cle.ToString()][m];
-                                        for (int k = 0; k < mot.Length; k++)
-                                        {
-                                            lettres[i, j - k] = mot[k];
-                                        }
-                                    }
-
-                                }
-                                else if (direction == 3)
-                                {
-                                    cle = 10 - i;
-                                    if (cle > 1)
-                                    {
-                                        m = alea.Next(dico.Mots[cle.ToString()].Length);
-                                        mot = dico.Mots[cle.ToString()][m];
-                                        for (int k = 0; k < mot.Length; k++)
-                                        {
-                                            lettres[i - k, j] = mot[k];
-                                        }
-                                    }
-                                }
-                                else if (direction == 4)
-                                {
-                                    cle = 10 - Math.Max(i, j);
-                                    if (cle > 1)
-                                    {
-                                        m = alea.Next(dico.Mots[cle.ToString()].Length);
-                                        mot = dico.Mots[cle.ToString()][m];
-                                        for (int k = 0; k < mot.Length; k++)
-                                        {
-                                            lettres[i + k, j + k] = mot[k];
-                                        }
-                                    }
-                                }
-
-                            }
-                        }
-
-                    }
-                    break;
-                case 4:
-                    for (int i = 0; i < 10; i++)
-                    {
-                        for (int j = 0; j < 10; j++)
-                        {
-                            if (lettres[i, j] == '\0')
-                            {
-                                direction = alea.Next(6);
-                                if (lettres[i, j] == '\0')
-                                {
-                                    direction = alea.Next(5);
-                                    if (direction == 0)
-                                    {
-                                        cle = 10 - j;
-                                        if (cle > 1)
-                                        {
-                                            m = alea.Next(dico.Mots[cle.ToString()].Length);
-                                            mot = dico.Mots[cle.ToString()][m];
-                                            for (int k = 0; k < mot.Length; k++)
-                                            {
-                                                lettres[i, j + k] = mot[k];
-                                            }
-                                        }
-
-                                    }
-                                    else if (direction == 1)
-                                    {
-                                        cle = 10 - i;
-                                        if (cle > 1)
-                                        {
-                                            m = alea.Next(dico.Mots[cle.ToString()].Length);
-                                            mot = dico.Mots[cle.ToString()][m];
-                                            for (int k = 0; k < mot.Length; k++)
-                                            {
-                                                lettres[i + k, j] = mot[k];
-                                            }
-                                        }
-
-                                    }
-                                    else if (direction == 2)
-                                    {
-                                        cle = j + 1;
-                                        if (cle > 1)
-                                        {
-                                            m = alea.Next(dico.Mots[cle.ToString()].Length);
-                                            mot = dico.Mots[cle.ToString()][m];
-                                            for (int k = 0; k < mot.Length; k++)
-                                            {
-                                                lettres[i, j - k] = mot[k];
-                                            }
-                                        }
-
-                                    }
-                                    else if (direction == 3)
-                                    {
-                                        cle = i + 1;
-                                        if (cle > 1)
-                                        {
-                                            m = alea.Next(dico.Mots[cle.ToString()].Length);
-                                            mot = dico.Mots[cle.ToString()][m];
-                                            for (int k = 0; k < mot.Length; k++)
-                                            {
-                                                lettres[i - k, j] = mot[k];
-                                            }
-                                        }
-                                    }
-                                    else if (direction == 4)
-                                    {
-                                        cle = 10 - Math.Max(i, j);
-                                        if (cle > 1)
-                                        {
-                                            m = alea.Next(dico.Mots[cle.ToString()].Length);
-                                            mot = dico.Mots[cle.ToString()][m];
-                                            for (int k = 0; k < mot.Length; k++)
-                                            {
-                                                lettres[i + k, j + k] = mot[k];
-                                            }
-                                        }
-                                    }
-                                    else if (direction == 5)
-                                    {
-                                        cle = 10 - Math.Max(10 - i - 1, j);
-                                        if (cle > 1)
-                                        {
-                                            m = alea.Next(dico.Mots[cle.ToString()].Length);
-                                            mot = dico.Mots[cle.ToString()][m];
-                                            for (int k = 0; k < mot.Length; k++)
-                                            {
-                                                lettres[i - k, j + k] = mot[k];
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    break;
-
-                case 5:
-                    for (int i = 0; i < 10; i++)
-                    {
-                        for (int j = 0; j < 10; j++)
-                        {
-                            if (lettres[i, j] == '\0')
-                            {
-                                direction = alea.Next(8);
-                                if (direction == 0)
-                                {
-                                    cle = 10 - j;
-                                    if (cle > 1)
-                                    {
-                                        m = alea.Next(dico.Mots[cle.ToString()].Length);
-                                        mot = dico.Mots[cle.ToString()][m];
-                                        for (int k = 0; k < mot.Length; k++)
-                                        {
-                                            lettres[i, j + k] = mot[k];
-                                        }
-                                    }
-
-                                }
-                                else if (direction == 1)
-                                {
-                                    cle = 10 - i;
-                                    if (cle > 1)
-                                    {
-                                        m = alea.Next(dico.Mots[cle.ToString()].Length);
-                                        mot = dico.Mots[cle.ToString()][m];
-                                        for (int k = 0; k < mot.Length; k++)
-                                        {
-                                            lettres[i + k, j] = mot[k];
-                                        }
-                                    }
-
-                                }
-                                else if (direction == 2)
-                                {
-                                    cle = j + 1;
-                                    if (cle > 1)
-                                    {
-                                        m = alea.Next(dico.Mots[cle.ToString()].Length);
-                                        mot = dico.Mots[cle.ToString()][m];
-                                        for (int k = 0; k < mot.Length; k++)
-                                        {
-                                            lettres[i, j - k] = mot[k];
-                                        }
-                                    }
-
-                                }
-                                else if (direction == 3)
-                                {
-                                    cle = i + 1;
-                                    if (cle > 1)
-                                    {
-                                        m = alea.Next(dico.Mots[cle.ToString()].Length);
-                                        mot = dico.Mots[cle.ToString()][m];
-                                        for (int k = 0; k < mot.Length; k++)
-                                        {
-                                            lettres[i - k, j] = mot[k];
-                                        }
-                                    }
-                                }
-                                else if (direction == 4)
-                                {
-                                    cle = 10 - Math.Max(i, j);
-                                    if (cle > 1)
-                                    {
-                                        m = alea.Next(dico.Mots[cle.ToString()].Length);
-                                        mot = dico.Mots[cle.ToString()][m];
-                                        for (int k = 0; k < mot.Length; k++)
-                                        {
-                                            lettres[i + k, j + k] = mot[k];
-                                        }
-                                    }
-                                }
-                                else if (direction == 5)
-                                {
-                                    cle = 10 - Math.Max(10 - i - 1, j);
-                                    if (cle > 1)
-                                    {
-                                        m = alea.Next(dico.Mots[cle.ToString()].Length);
-                                        mot = dico.Mots[cle.ToString()][m];
-                                        for (int k = 0; k < mot.Length; k++)
-                                        {
-                                            lettres[i - k, j + k] = mot[k];
-                                        }
-                                    }
-                                }
-                                else if (direction == 6)
-                                {
-                                    cle = 10 - Math.Max(10 - i - 1, 10 - 1 - j);
-                                    if (cle > 1)
-                                    {
-                                        m = alea.Next(dico.Mots[cle.ToString()].Length);
-                                        mot = dico.Mots[cle.ToString()][m];
-                                        for (int k = 0; k < mot.Length; k++)
-                                        {
-                                            lettres[i - k, j - k] = mot[k];
-                                        }
-                                    }
-                                }
-                                else if (direction == 7)
-                                {
-                                    cle = 10 - Math.Max(i, 10 - 1 - j);
-                                    if (cle > 1)
-                                    {
-                                        m = alea.Next(dico.Mots[cle.ToString()].Length);
-                                        mot = dico.Mots[cle.ToString()][m];
-                                        for (int k = 0; k < mot.Length; k++)
-                                        {
-                                            lettres[i + k, j - k] = mot[k];
-                                        }
-                                    }
-                                }
-                            }
-                        }
-
-                    }
-                    break;
-            }
-            for (int i = 0; i < lettres.GetLength(0); i++)
-            {
-                for (int j = 0; j < lettres.GetLength(1); j++)
+                for (int j = 0; j < 10; j++)
                 {
-                    if (lettres[i, j] == '0')
+                    switch (niveau)
                     {
-                        lettres[i, j] = alphabet[alea.Next(26)];
+                        case 1:
+                            direction = alea.Next(2);
+                            break;
+                        case 2:
+                            direction = alea.Next(4);
+                            break;
+                        case 3:
+                            direction = alea.Next(5);
+                            break;
+                        case 4:
+                            direction = alea.Next(6);
+                            break;
+                        case 5:
+                            direction = alea.Next(8);
+                            break;
+                    }
+                    switch (direction)
+                    {
+                        case 0:
+                            cle = 10 - j;
+                            while (!(PlacementValide(cle, direction, i, j, lettres)))
+                            {
+                                cle--;
+                            }
+                            if (cle > 1)
+                            {
+                                rdm = alea.Next(dico.Mots[cle.ToString()].Length);
+                                mot = (dico.Mots[cle.ToString()])[rdm];
+                                for (int k = 0; k < mot.Length; k++)
+                                {
+                                    lettres[i, j + k] = mot[k];
+                                }
+                                mots1.Add(mot);
+                            }
+                            break;
+                        case 1:
+                            cle = 10 - i;
+                            while (!(PlacementValide(cle, direction, i, j, lettres)))
+                            {
+                                cle--;
+                            }
+                            if (cle > 1)
+                            {
+                                rdm = alea.Next(dico.Mots[cle.ToString()].Length);
+                                mot = dico.Mots[cle.ToString()][rdm];
+                                for (int k = 0; k < mot.Length; k++)
+                                {
+                                    lettres[i + k, j] = mot[k];
+                                }
+                                mots1.Add(mot);
+                            }
+                            break;
+                        case 2:
+                            cle = j + 1;
+                            while (!(PlacementValide(cle, direction, i, j, lettres)))
+                            {
+                                cle--;
+                            }
+                            if (cle > 1)
+                            {
+                                rdm = alea.Next(dico.Mots[cle.ToString()].Length);
+                                mot = dico.Mots[cle.ToString()][rdm];
+                                for (int k = 0; k < mot.Length; k++)
+                                {
+                                    lettres[i, j - k] = mot[k];
+                                }
+                                mots1.Add(mot);
+                            }
+                            break;
+                        case 3:
+                            cle = i + 1;
+                            while (!(PlacementValide(cle, direction, i, j, lettres)))
+                            {
+                                cle--;
+                            }
+                            if (cle > 1)
+                            {
+                                rdm = alea.Next(dico.Mots[cle.ToString()].Length);
+                                mot = dico.Mots[cle.ToString()][rdm];
+                                for (int k = 0; k < mot.Length; k++)
+                                {
+                                    lettres[i - k, j] = mot[k];
+                                }
+                                mots1.Add(mot);
+                            }
+                            break;
+                        case 4:
+                            cle = Math.Min(10 - i, 10 - j);
+                            while (!(PlacementValide(cle, direction, i, j, lettres)))
+                            {
+                                cle--;
+                            }
+                            if (cle > 1)
+                            {
+                                rdm = alea.Next(dico.Mots[cle.ToString()].Length);
+                                mot = dico.Mots[cle.ToString()][rdm];
+                                for (int k = 0; k < mot.Length; k++)
+                                {
+                                    lettres[i + k, j + k] = mot[k];
+                                }
+                                mots1.Add(mot);
+                            }
+                            break;
+                        case 5:
+                            cle = Math.Min(i + 1, 10 - j);
+                            while (!(PlacementValide(cle, direction, i, j, lettres)))
+                            {
+                                cle--;
+                            }
+                            if (cle > 1)
+                            {
+                                rdm = alea.Next(dico.Mots[cle.ToString()].Length);
+                                mot = dico.Mots[cle.ToString()][rdm];
+                                for (int k = 0; k < mot.Length; k++)
+                                {
+                                    lettres[i - k, j + k] = mot[k];
+                                }
+                                mots1.Add(mot);
+                            }
+                            break;
+                        case 6:
+                            cle = Math.Min(i + 1, j + 1);
+                            while (!(PlacementValide(cle, direction, i, j, lettres)))
+                            {
+                                cle--;
+                            }
+                            if (cle > 1)
+                            {
+                                rdm = alea.Next(dico.Mots[cle.ToString()].Length);
+                                mot = dico.Mots[cle.ToString()][rdm];
+                                for (int k = 0; k < mot.Length; k++)
+                                {
+                                    lettres[i - +k, j - k] = mot[k];
+                                }
+                                mots1.Add(mot);
+                            }
+                            break;
+                        case 7:
+                            cle = Math.Min(10 - i, j + 1);
+                            while (!(PlacementValide(cle, direction, i, j, lettres)))
+                            {
+                                cle--;
+                            }
+                            if (cle > 1)
+                            {
+                                rdm = alea.Next(dico.Mots[cle.ToString()].Length);
+                                mot = dico.Mots[cle.ToString()][rdm];
+                                for (int k = 0; k < mot.Length; k++)
+                                {
+                                    lettres[i + k, j - k] = mot[k];
+                                }
+                                mots1.Add(mot);
+                            }
+                            break;
                     }
                 }
             }
-            return (lettres);
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    if (lettres[i, j] == charactVide[0])
+                    {
+                        rdm = alea.Next(26);
+                        lettres[i, j] = alphabet[rdm];
+                    }
+                }
+            }
+            string[] mots2 = new string[mots1.Count];
+            for (int k = 0; k < mots2.Length; k++)
+            {
+                mots2[k] = mots1[k];
+            }
+            this.lettres = lettres;
+            this.mots = mots2;
         }
-        
         /// <summary>
-        /// cree une liste de tout les mots present dans le tableaux carré correspondant à un mot du dictionnaire
+        /// Vérifie si un mot de taille longueur peut etre placé dans direction depuis la position i,j
         /// </summary>
+        /// <param name="longueur"></param>
+        /// <param name="direction"></param>
+        /// <param name="ligne"></param>
+        /// <param name="colonne"></param>
         /// <param name="tab"></param>
         /// <returns></returns>
-        private string[] RechMot(int niveau, char[,] tab, Dictionnaire dico)
+        private bool PlacementValide(int longueur, int direction, int ligne, int colonne, char[,] tab)
         {
-            List<string>listeMot1 = new List<string>();
-            string mot = "";
-            //Rechercher tout les mots compris dans tab
-            switch (niveau)
+            char[] charactVide = new char[1];
+            for (int k = 0; k < longueur; k++)
             {
-                case 1:
-                    for (int i = 0; i < tab.GetLength(0); i++)
-                    {
-                        for (int j = 0; j < tab.GetLength(1); j++)
+                switch (direction)
+                {
+                    case 0:
+                        if (tab[ligne, colonne + k] != charactVide[0])
                         {
-                            for (int k = 0; k < tab.GetLength(1) - j; k++)
-                            {
-                                mot = mot + tab[i, k];
-                                if (dico.RechDichoRecursif(mot))
-                                {
-                                    listeMot1.Add(mot);
-                                }
-                            }
-                            mot = "";
-                            for (int k = 0; k < tab.GetLength(0) - i; k++)
-                            {
-                                mot = mot + tab[k, j];
-                                if (dico.RechDichoRecursif(mot))
-                                {
-                                    listeMot1.Add(mot);
-                                }
-                            }
-                            mot = "";
+                            return false;
                         }
-                    }
                         break;
-                case 2:
-                    for (int i = 0; i < tab.GetLength(0); i++)
-                    {
-                        for (int j = 0; j < tab.GetLength(1); j++)
+                    case 1:
+                        if (tab[ligne + k, colonne] != charactVide[0])
                         {
-                            for (int k = 0; k < tab.GetLength(1) - j; k++)
-                            {
-                                mot = mot + tab[i, k];
-                                if (dico.RechDichoRecursif(mot))
-                                {
-                                    listeMot1.Add(mot);
-                                }
-                            }
-                            mot = "";
-                            for (int k = 0; k < tab.GetLength(0) - i; k++)
-                            {
-                                mot = mot + tab[k, j];
-                                if (dico.RechDichoRecursif(mot))
-                                {
-                                    listeMot1.Add(mot);
-                                }
-                            }
-                            mot = "";
-                            for (int k = j; k>=0; k--)
-                            {
-                                mot = mot + tab[i, k];
-                                if (dico.RechDichoRecursif(mot))
-                                {
-                                    listeMot1.Add(mot);
-                                }
-                            }
-                            mot = "";
-                            for (int k = i; k>=0; k--)
-                            {
-                                mot = mot + tab[k, j];
-                                if (dico.RechDichoRecursif(mot))
-                                {
-                                    listeMot1.Add(mot);
-                                }
-                            }
-                            mot = "";
+                            return false;
                         }
-                    }
-                    break;
-                case 3:
-                    for (int i = 0; i < tab.GetLength(0); i++)
-                    {
-                        for (int j = 0; j < tab.GetLength(1); j++)
+                        break;
+                    case 2:
+                        if (tab[ligne, colonne - k] != charactVide[0])
                         {
-                            for (int k = 0; k < tab.GetLength(1) - j; k++)
-                            {
-                                mot = mot + tab[i, k];
-                                if (dico.RechDichoRecursif(mot))
-                                {
-                                    listeMot1.Add(mot);
-                                }
-                            }
-                            mot = "";
-                            for (int k = 0; k < tab.GetLength(0) - i; k++)
-                            {
-                                mot = mot + tab[k, j];
-                                if (dico.RechDichoRecursif(mot))
-                                {
-                                    listeMot1.Add(mot);
-                                }
-                            }
-                            mot = "";
-                            for (int k = j; k >= 0; k--)
-                            {
-                                mot = mot + tab[i, k];
-                                if (dico.RechDichoRecursif(mot))
-                                {
-                                    listeMot1.Add(mot);
-                                }
-                            }
-                            mot = "";
-                            for (int k = i; k >= 0; k--)
-                            {
-                                mot = mot + tab[k, j];
-                                if (dico.RechDichoRecursif(mot))
-                                {
-                                    listeMot1.Add(mot);
-                                }
-                            }
-                            mot = "";
-                            for (int k =0;k<Math.Min(tab.GetLength(0),tab.GetLength(1)) - Math.Max(i,j); k++)
-                            {
-                                mot = mot + tab[i+k, j+k];
-                                if (dico.RechDichoRecursif(mot))
-                                {
-                                    listeMot1.Add(mot);
-                                }
-                            }
-                            mot = "";
+                            return false;
                         }
-                    }
-                    break;
-                case 4:
-                    for (int i = 0; i < tab.GetLength(0); i++)
-                    {
-                        for (int j = 0; j < tab.GetLength(1); j++)
+                        break;
+                    case 3:
+                        if (tab[ligne - k, colonne] != charactVide[0])
                         {
-                            for (int k = 0; k < tab.GetLength(1) - j; k++)
-                            {
-                                mot = mot + tab[i, k];
-                                if (dico.RechDichoRecursif(mot))
-                                {
-                                    listeMot1.Add(mot);
-                                }
-                            }
-                            mot = "";
-                            for (int k = 0; k < tab.GetLength(0) - i; k++)
-                            {
-                                mot = mot + tab[k, j];
-                                if (dico.RechDichoRecursif(mot))
-                                {
-                                    listeMot1.Add(mot);
-                                }
-                            }
-                            mot = "";
-                            for (int k = j; k >= 0; k--)
-                            {
-                                mot = mot + tab[i, k];
-                                if (dico.RechDichoRecursif(mot))
-                                {
-                                    listeMot1.Add(mot);
-                                }
-                            }
-                            mot = "";
-                            for (int k = i; k >= 0; k--)
-                            {
-                                mot = mot + tab[k, j];
-                                if (dico.RechDichoRecursif(mot))
-                                {
-                                    listeMot1.Add(mot);
-                                }
-                            }
-                            mot = "";
-                            for (int k = 0; k < Math.Min(tab.GetLength(0), tab.GetLength(1)) - Math.Max(i, j); k++)
-                            {
-                                mot = mot + tab[i + k, j + k];
-                                if (dico.RechDichoRecursif(mot))
-                                {
-                                    listeMot1.Add(mot);
-                                }
-                            }
-                            mot = "";
-                            for (int k = 0; k < Math.Min(tab.GetLength(0), tab.GetLength(1)) - Math.Max(tab.GetLength(0)-1-i, j); k++)
-                            {
-                                mot = mot + tab[i - k, j + k];
-                                if (dico.RechDichoRecursif(mot))
-                                {
-                                    listeMot1.Add(mot);
-                                }
-                            }
-                            mot = "";
+                            return false;
                         }
-                    }
-                    break;
-                case 5:
-                    for (int i = 0; i < tab.GetLength(0); i++)
-                    {
-                        for (int j = 0; j < tab.GetLength(1); j++)
+                        break;
+                    case 4:
+                        if (tab[ligne + k, colonne + k] != charactVide[0])
                         {
-                            for (int k = 0; k < tab.GetLength(1) - j; k++)
-                            {
-                                mot = mot + tab[i, k];
-                                if (dico.RechDichoRecursif(mot))
-                                {
-                                    listeMot1.Add(mot);
-                                }
-                            }
-                            mot = "";
-                            for (int k = 0; k < tab.GetLength(0) - i; k++)
-                            {
-                                mot = mot + tab[k, j];
-                                if (dico.RechDichoRecursif(mot))
-                                {
-                                    listeMot1.Add(mot);
-                                }
-                            }
-                            mot = "";
-                            for (int k = j; k >= 0; k--)
-                            {
-                                mot = mot + tab[i, k];
-                                if (dico.RechDichoRecursif(mot))
-                                {
-                                    listeMot1.Add(mot);
-                                }
-                            }
-                            mot = "";
-                            for (int k = i; k >= 0; k--)
-                            {
-                                mot = mot + tab[k, j];
-                                if (dico.RechDichoRecursif(mot))
-                                {
-                                    listeMot1.Add(mot);
-                                }
-                            }
-                            mot = "";
-                            for (int k = 0; k < Math.Min(tab.GetLength(0), tab.GetLength(1)) - Math.Max(i, j); k++)
-                            {
-                                mot = mot + tab[i + k, j + k];
-                                if (dico.RechDichoRecursif(mot))
-                                {
-                                    listeMot1.Add(mot);
-                                }
-                            }
-                            mot = "";
-                            for (int k = 0; k < Math.Min(tab.GetLength(0), tab.GetLength(1)) - Math.Max(tab.GetLength(0) - 1 - i, j); k++)
-                            {
-                                mot = mot + tab[i - k, j + k];
-                                if (dico.RechDichoRecursif(mot))
-                                {
-                                    listeMot1.Add(mot);
-                                }
-                            }
-                            mot = "";
-                            for (int k = 0; k < Math.Min(tab.GetLength(0), tab.GetLength(1)) - Math.Max(tab.GetLength(0)-1-i, tab.GetLength(1)-1-j); k++)
-                            {
-                                mot = mot + tab[i - k, j - k];
-                                if (dico.RechDichoRecursif(mot))
-                                {
-                                    listeMot1.Add(mot);
-                                }
-                            }
-                            mot = "";
-                            for (int k = 0; k < Math.Min(tab.GetLength(0), tab.GetLength(1)) - Math.Max( i, tab.GetLength(1) - 1 - j); k++)
-                            {
-                                mot = mot + tab[i + k, j - k];
-                                if (dico.RechDichoRecursif(mot))
-                                {
-                                    listeMot1.Add(mot);
-                                }
-                            }
-                            mot = "";
+                            return false;
                         }
-                    }
-                    break;
+                        break;
+                    case 5:
+                        if (tab[ligne - k, colonne + k] != charactVide[0])
+                        {
+                            return false;
+                        }
+                        break;
+                    case 6:
+                        if (tab[ligne - k, colonne - k] != charactVide[0])
+                        {
+                            return false;
+                        }
+                        break;
+                    case 7:
+                        if (tab[ligne + k, colonne - k] != charactVide[0])
+                        {
+                            return false;
+                        }
+                        break;
+                }
             }
-            
-
-            //
-            string[] listeMot2 = new string[listeMot1.Count()];
-            int w = 0;
-            foreach(string e in listeMot1)
-            {
-                listeMot2[w] = e;
-                w++;
-            }
-            return (listeMot2);
+            return true;
         }
         /// <summary>
         /// Renvoie un string décrivant le Plateau

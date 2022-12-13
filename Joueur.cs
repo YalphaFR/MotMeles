@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MotMeles_v1
 {
-    internal class Joueur
+    public class Joueur
     {
         private string nom;
         private List<string> mots; //possibilité erreur avec liste
