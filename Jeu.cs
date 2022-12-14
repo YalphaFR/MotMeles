@@ -49,7 +49,7 @@ namespace MotMeles_v1 {
 
             for (int i = 0; i < this.plateaux.Length; i++) {
                 for (int j = 0; j < this.plateaux.GetLength(i); j++) {
-                    Plateau plateau = plateaux[i, j];
+                    Plateau plateau = this.plateaux[i, j];
                     if (plateau == null) {
                         throw new Exception($"Le {j}ème plateau du tour ${i} est introuvable (null)");
                     }
@@ -66,16 +66,30 @@ namespace MotMeles_v1 {
                         Console.WriteLine("Proposition de mot :\n");
                         string mot = Console.ReadLine().ToUpper();
                         Console.WriteLine("A partir de la ligne :\n");
-                        string ligne = Console.ReadLine();
-                        if (!Utile.EstNumerique(ligne, NumberStyles.Number)) {
+                        string ligneStr = Console.ReadLine();
+                        if (!Utile.EstNumerique(ligneStr, NumberStyles.Number)) {
+                            Console.WriteLine("La ligne renseignée est invalide");
+                            Console.ReadKey();
+                            continue;
+                        }
+
+                        int ligne = int.Parse(ligneStr) - 1;
+                        if (ligne < 0 || ligne > plateau.Lettres.Length) {
                             Console.WriteLine("La ligne renseignée est invalide");
                             Console.ReadKey();
                             continue;
                         }
 
                         Console.WriteLine("A partir de la colonne :\n");
-                        string colonne = Console.ReadLine();
-                        if (!Utile.EstNumerique(colonne, NumberStyles.Number)) {
+                        string colonneStr = Console.ReadLine();
+                        if (!Utile.EstNumerique(colonneStr, NumberStyles.Number)) {
+                            Console.WriteLine("La colonne renseignée est invalide");
+                            Console.ReadKey();
+                            continue;
+                        }
+
+                        int colonne = int.Parse(colonneStr) - 1;
+                        if (colonne < 0 || colonne > plateau.Lettres.Length) {
                             Console.WriteLine("La colonne renseignée est invalide");
                             Console.ReadKey();
                             continue;
@@ -83,11 +97,11 @@ namespace MotMeles_v1 {
 
                         Console.WriteLine("Dans la direction :\n");
                         string direction = Console.ReadLine();
-                        if (plateau.Test_Plateau(mot, int.Parse(ligne) - 1, int.Parse(colonne) - 1, direction, dico)) {
+                        if (plateau.Test_Plateau(mot, ligne, colonne, direction, dico)) {
                             joueur.Add_Mot(mot);
                             joueur.AugmenterScore();
-                            plateau.DeleteMot(mot.ToUpper());
-                            plateau.ViderGrilleMot(mot, direction, int.Parse(ligne), int.Parse(colonne));
+                            plateau.DeleteMot(mot);
+                            plateau.ViderGrilleMot(mot, direction, ligne, colonne);
                             Console.WriteLine("Vous avez trouvé le mot !");
                         } else {
                             Console.WriteLine("Le mot n'est pas présent à l'endroit indiqué !");

@@ -50,6 +50,12 @@ namespace MotMeles_v1 {
             Dictionnaire dictionnaire = ChoisirLangue();
             int niveauDifficulte = ChoisirDifficulte();
             Plateau[,] plateaux = Plateau.GenererPlateaux(joueurs.Length, Constantes.descriptionNiveauDeDifficulte.Length, dictionnaire, niveauDifficulte);
+
+            foreach (Plateau p in plateaux) {
+                Console.WriteLine(p.ToString());
+            }
+            Console.ReadKey();
+
             return new Jeu(dictionnaire, joueurs, plateaux);
         }
 

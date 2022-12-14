@@ -586,7 +586,7 @@ namespace MotMeles_v1
             Plateau[,] plateaux = new Plateau[niveau, nbrPlateau];
             for (int i = indiceDebut; i < niveau + 1; i++) {
                 for (int j = 0; j < nbrPlateau; j++) {
-                    plateaux[niveau - i, j] = new Plateau(i, dico);
+                    plateaux[niveau - i, j] = new Plateau(niveau + 1 - i, dico);
                 }
             }
             return plateaux;
