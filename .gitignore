@@ -1,0 +1,9 @@
+.vs/
+bin/
+obj/
+Properties/
+App.config
+MotMeles.csproj
+MotMeles.sln
+modelisation_code/
+packages/
