@@ -549,28 +549,28 @@ namespace MotMeles_v1
                 switch (direction)
                 {
                     case "N":
-                        this.lettres[ligne,colone+i]=mot[i];
+                        this.lettres[ligne,colone+i]=' ';
                         break;
                     case "S":
-                        this.lettres[ligne+i, colone] = mot[i];
+                        this.lettres[ligne+i, colone] = ' ';
                         break;
                     case "E":
-                        this.lettres[ligne, colone-i] = mot[i];
+                        this.lettres[ligne, colone - i] = ' ';
                         break;
                     case "O":
-                        this.lettres[ligne-i, colone] = mot[i];
+                        this.lettres[ligne-i, colone] = ' ';
                         break;
                     case "SE":
-                        this.lettres[ligne+i, colone + i] = mot[i];
+                        this.lettres[ligne+i, colone + i] = ' ';
                         break;
                     case "NE":
-                        this.lettres[ligne-i, colone + i] = mot[i];
+                        this.lettres[ligne-i, colone + i] = ' ';
                         break;
                     case "NO":
-                        this.lettres[ligne-i, colone - i] = mot[i];
+                        this.lettres[ligne-i, colone - i] = ' ';
                         break;
                     case "SO":
-                        this.lettres[ligne + i, colone - i] = mot[i];
+                        this.lettres[ligne + i, colone - i] = ' ';
                         break;
                 }
             }
