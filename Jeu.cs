@@ -54,6 +54,7 @@ namespace MotMeles_v1 {
                         throw new Exception($"Le {j}ème plateau du tour ${i} est introuvable (null)");
                     }
                     Joueur joueur = this.joueurs[j];
+                    joueur.ViderMotsTrouves();
                     Console.WriteLine($"C'est au tour du joueur {joueur.Nom} à jouer !");
                     Console.ReadKey();
 
@@ -85,6 +86,8 @@ namespace MotMeles_v1 {
                         if (plateau.Test_Plateau(mot, int.Parse(ligne) - 1, int.Parse(colonne) - 1, direction, dico)) {
                             joueur.Add_Mot(mot);
                             joueur.AugmenterScore();
+                            plateau.DeleteMot(mot.ToUpper());
+                            plateau.VideGrilleMot(mot, direction, int.Parse(ligne), int.Parse(colonne));
                             Console.WriteLine("Vous avez trouvé le mot !");
                         } else {
                             Console.WriteLine("Le mot n'est pas présent à l'endroit indiqué !");

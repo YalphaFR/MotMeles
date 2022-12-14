@@ -108,6 +108,10 @@ namespace MotMeles_v1
                 Console.WriteLine(e.Message);
             }
         }
+
+        public void ViderMotsTrouves() {
+            this.mots.Clear();
+        }
     }
     
 }

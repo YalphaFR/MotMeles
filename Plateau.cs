@@ -542,7 +542,7 @@ namespace MotMeles_v1
         /// <param name="direction">son orientation</param> 
         /// <param name="ligne">la position de la première lettre selon les lignes</param> 
         /// <param name="colone">la position de la première lettre selon les colones</param> 
-        public void Vide(string mot, string direction,int ligne, int colone)
+        public void VideGrilleMot(string mot, string direction,int ligne, int colone)
         {
             for(int i = 0; i < mot.Length; i++)
             {
@@ -590,6 +590,15 @@ namespace MotMeles_v1
                 }
             }
             return plateaux;
+        }
+
+        public void DeleteMot(string mot) {
+            for (int i = 0; i < this.mots.Length; i++) {
+                if (this.mots[i] == mot) {
+                    this.mots[i] = null;
+                    return;
+                }
+            }
         }
     }
 }
