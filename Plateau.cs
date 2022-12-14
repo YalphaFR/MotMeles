@@ -542,7 +542,7 @@ namespace MotMeles_v1
         /// <param name="direction">son orientation</param> 
         /// <param name="ligne">la position de la première lettre selon les lignes</param> 
         /// <param name="colone">la position de la première lettre selon les colones</param> 
-        public void VideGrilleMot(string mot, string direction,int ligne, int colone)
+        public void ViderGrilleMot(string mot, string direction,int ligne, int colone)
         {
             for(int i = 0; i < mot.Length; i++)
             {

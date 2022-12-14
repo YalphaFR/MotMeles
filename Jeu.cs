@@ -87,7 +87,7 @@ namespace MotMeles_v1 {
                             joueur.Add_Mot(mot);
                             joueur.AugmenterScore();
                             plateau.DeleteMot(mot.ToUpper());
-                            plateau.VideGrilleMot(mot, direction, int.Parse(ligne), int.Parse(colonne));
+                            plateau.ViderGrilleMot(mot, direction, int.Parse(ligne), int.Parse(colonne));
                             Console.WriteLine("Vous avez trouvé le mot !");
                         } else {
                             Console.WriteLine("Le mot n'est pas présent à l'endroit indiqué !");
