@@ -15,7 +15,7 @@ namespace MotMeles_v1
         public Joueur(string nom )
         {
             this.nom = nom;
-            this.mots = null;
+            this.mots = new List<string>();
             this.score = 0;
         }
 

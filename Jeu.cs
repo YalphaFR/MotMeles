@@ -115,21 +115,26 @@ namespace MotMeles_v1 {
                 this.joueurs = joueurs;
                 l = sr.ReadLine().Split('/');
                 l1 = l[1].Split(';');
-                for (int j = 0; j < NbJoueurs; j++)
+                bool readAble = true;
+                for (int j = 0; j < NbJoueurs && readAble; j++)
                 {
-                    for (int i = 0; i < 5-int.Parse(l[0])+1; i++)
+                    for (int i = 0; i < 5-int.Parse(l[0])+1 && readAble; i++)
                     {
+                        if (sr.ReadLine() == null) {
+                            readAble = false;
+                            continue;
+                        }
                         char[,] lettres = new char[10,10];
-                        for(int k = 0; k<10;k++)
+                        for(int k = 0; k<10 && readAble;k++)
                         {
                             l3 = l[2+k].Split(';');
-                            for(int n = 0; n < 10; n++)
+                            for(int n = 0; n < 10 && readAble; n++)
                             {
                                 lettres[k,n] = char.Parse(l3[n]);
                             }
                         }
                         this.plateaux[i, j] = new Plateau(int.Parse(l[0]), l[1].Split(';'), lettres);
-                        l=sr.ReadLine().Split('/');
+                        l = sr.ReadLine().Split('/');
                         l1 = l[1].Split(';');
                     }
                 }
@@ -155,9 +160,9 @@ namespace MotMeles_v1 {
         /// </summary>
         public void Jouer() {
             Console.WriteLine("La partie va commencer.");
-
-            for (int i = 0; i < this.plateaux.GetLength(0); i++) {
-                for (int j = 0; j < this.joueurs.Length; j++) {
+            bool jeuEnCours = true;
+            for (int i = 0; i < this.plateaux.GetLength(0) && jeuEnCours; i++) {
+                for (int j = 0; j < this.joueurs.Length && jeuEnCours; j++) {
                     Console.ReadKey();
                     Plateau plateau = this.plateaux[i, j];
                     if (plateau == null) {
@@ -226,6 +231,13 @@ namespace MotMeles_v1 {
                         Console.WriteLine("Félicitations, vous avez trouvé tous les mots dans le temps imparti !\nJe vous accorder un bonus de 10 points supplémentaires !");
                     }
                     Console.ReadKey();
+                    Console.WriteLine("Sauvegarder la partie en cours ? O = Oui N = Non");
+                    string reponse = Console.ReadLine().ToUpper();
+                    if (reponse == "O") {
+                        this.ToFile(Constantes.cheminPartie, i);
+                        Console.WriteLine("La partie a bien été sauvegardée");
+                        jeuEnCours = false;
+                    }
                 }
             }
             Console.WriteLine("Fin de la partie");

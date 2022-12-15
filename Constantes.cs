@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,6 @@ namespace MotMeles_v1 {
             "4. les mots répondent à la difficulté et peuvent être sur les diagonales (NO-SE) de haut en bas",
             "5. les mots peuvent être sur toutes les diagonales de bas en haut"
         };
-
+        public static readonly string cheminPartie = "Partie\\partie.csv";
     }
 }

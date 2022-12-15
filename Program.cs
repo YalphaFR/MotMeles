@@ -28,7 +28,8 @@ namespace MotMeles_v1 {
                         if (cki.Key == ConsoleKey.D1 || cki.Key == ConsoleKey.NumPad1) {
                             partie = NouvellePartie();
                         } else if (cki.Key == ConsoleKey.D2 || cki.Key == ConsoleKey.NumPad2) {
-                            //partie = ChargerPartie();
+                            Console.WriteLine("La précédente partie va être chargée");
+                            partie = new Jeu(Constantes.cheminPartie);
                         } else {
                             continue;
                         }
@@ -57,17 +58,10 @@ namespace MotMeles_v1 {
         }
 
         /// <summary>
-        /// 
+        /// Initie la partie à partir d'une sauvegarde
         /// </summary>
-        /// <returns>Une instance </returns>
-        /*public static Jeu ChargerPartie() {
-            Console.Clear();
-            Dictionnaire dictionnaire = Dictionnaire();
-            Joueur[] 
-            
-
-            return new Jeu(dictionnaire, joueurs, plateaux);
-        }*/
+        /// <param name="path">Chemin d'accès à la partie précédente</param>
+        /// <returns>Une instance de Jeu</returns>
 
         public static Joueur[] ListerJoueurs() {
             Console.Clear();
@@ -113,7 +107,7 @@ namespace MotMeles_v1 {
                 Console.WriteLine("1. Français\n2. Anglais\n");
                 cki = Console.ReadKey();
                 if (cki.Key == ConsoleKey.D1 || cki.Key == ConsoleKey.NumPad1) {
-                    dictionnaire = new Dictionnaire("Français");
+                    dictionnaire = new Dictionnaire("Francais");
                     dictionnaire.ChargerDictionnaire(Constantes.cheminDicoFrancais);
                     if (dictionnaire.Mots == null) {
                         choixEnAttente = true;
