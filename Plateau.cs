@@ -27,9 +27,11 @@ namespace MotMeles_v1
             this.GenererPlateauAleatoire(dico);
             this.limite_temps = 1000 * 60;//300000; // en miliseconde
         }
-        public Plateau(string nomfile)
+        public Plateau(int niveau,string[] mots, char[,] lettres)
         {
-            this.ToReadFile(nomfile);
+            this.niveau=niveau;
+            this.mots = mots;
+            this.lettres = lettres;
         }
 
         public int Niveau
@@ -340,70 +342,6 @@ namespace MotMeles_v1
             return resultat;
         }
         /// <summary>
-        /// Cree un fichier à nomfile ou remplace un fichier déjà existant. Le fichier contient les information du Plateau
-        /// </summary>
-        /// <param name="nomfile">chemin du fichier</param>
-        public void ToFile(string nomfile)
-        {
-            try
-            {
-                StreamWriter sw = new StreamWriter(nomfile);
-                string ligne = "";
-                sw.WriteLine(this.niveau + ";" + this.lettres.GetLength(0) + ";" + this.lettres.GetLength(1) + ";" + this.mots.Length + ";");
-                ligne = string.Join(";",this.mots);
-                sw.WriteLine(ligne);
-                char[] tempo = new char[this.lettres.GetLength(1)];
-                for (int i = 0; i < this.lettres.GetLength(0); i++)
-                {
-                    for(int j=0; j < this.lettres.GetLength(1); j++)
-                    {
-                        tempo[i] = this.lettres[i, j];
-                    }
-                    ligne = string.Join(";", tempo);
-                    sw.WriteLine(ligne);
-                }
-                sw.Close();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-        }
-        /// <summary>
-        /// Crée un Plateau à partir d'un fichier txt existant
-        /// </summary>
-        /// <param name="nomfile">chemin du fichier</param> 
-        public void ToReadFile(string nomfile)
-        {
-            try
-            {
-                StreamReader sr = new StreamReader(nomfile);
-                string ligne = "";
-                ligne = sr.ReadLine();
-                string[] l1 = ligne.Split(';');
-                this.niveau = int.Parse(l1[0]);
-                ligne = sr.ReadLine();
-                string[] tempo = ligne.Split(';');
-                this.mots = tempo;
-                char[,] lettres = new char[int.Parse(l1[1]), int.Parse(l1[2])];
-                for(int i = 0; i < lettres.GetLength(0); i++)
-                {
-                    ligne = sr.ReadLine();
-                    tempo = ligne.Split(';');
-                    for (int j=0; j < lettres.GetLength(1); j++)
-                    {
-                        lettres[i, j] = tempo[j][0];
-                    }
-                }
-                this.lettres = lettres;
-                sr.Close();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-        }
-        /// <summary>
         /// Vérifie si le mot trouvé existe et s'il est bien dans la position décrite dans le tableau
         /// </summary>
         /// <param name="mot">le mot  à vérifier</param> 
@@ -583,7 +521,7 @@ namespace MotMeles_v1
         /// <param name="indiceDebut">L'indice qui représente le premier niveau auquel la génération des plateaux doit commencer</param>
         /// <returns>Retourne un tableau à deux dimensions contenant les plateaux, par niveau, de chaque joueur</returns>
         public static Plateau[,] GenererPlateaux(int nbrPlateau, int niveau, Dictionnaire dico, int indiceDebut = 1) {
-            Plateau[,] plateaux = new Plateau[niveau, nbrPlateau];
+            Plateau[,] plateaux = new Plateau[niveau + 1 - indiceDebut, nbrPlateau];
             for (int i = indiceDebut; i < niveau + 1; i++) {
                 for (int j = 0; j < nbrPlateau; j++) {
                     plateaux[niveau - i, j] = new Plateau(niveau + 1 - i, dico);

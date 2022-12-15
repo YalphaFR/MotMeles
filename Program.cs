@@ -9,7 +9,9 @@ namespace MotMeles_v1 {
             // Lancement du jeu complet uniquement à partir du menu
             Menu();
         }
-
+        /// <summary>
+        /// Affiche le menue et lance le jeu
+        /// </summary>
         public static void Menu() {
             ConsoleKeyInfo cki;
             Jeu partie = null;
@@ -101,7 +103,10 @@ namespace MotMeles_v1 {
             }
             return joueurs;
         }
-
+        /// <summary>
+        /// Permet la selection de la langue du dictionnaire utiliser pour jouer
+        /// </summary>
+        /// <returns></returns>
         public static Dictionnaire ChoisirLangue() {
             Console.Clear();
             ConsoleKeyInfo cki;
@@ -132,7 +137,10 @@ namespace MotMeles_v1 {
             } while (choixEnAttente);
             return dictionnaire;
         }
-
+        /// <summary>
+        /// Permet de choisir la difficulté de départ
+        /// </summary>
+        /// <returns></returns>
         public static int ChoisirDifficulte() {
             Console.Clear();
             Console.WriteLine($"Veuillez choisir un niveau de difficulté parmis ceux proposés :\n{String.Join("\n", Constantes.descriptionNiveauDeDifficulte)}");

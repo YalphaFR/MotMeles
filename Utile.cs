@@ -30,7 +30,11 @@ namespace MotMeles_v1 {
             }
             return -1;
         }
-        
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="chemin"></param>
+        /// <returns></returns>
         public static IEnumerable<string> LireFichier(string chemin) {
             if (File.Exists(chemin)) {
                 IEnumerable<string> lines = File.ReadLines(chemin);
@@ -38,7 +42,12 @@ namespace MotMeles_v1 {
             }
             return null;
         }
-
+        /// <summary>
+        /// Verifie si un string est un nombre
+        /// </summary>
+        /// <param name="entree"></param>
+        /// <param name="numberStyle"></param>
+        /// <returns></returns>
         public static Boolean EstNumerique(String entree, NumberStyles numberStyle) {
             Boolean result = int.TryParse(entree, numberStyle, CultureInfo.CurrentCulture, out _);
             return result;
