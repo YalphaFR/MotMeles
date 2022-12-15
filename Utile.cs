@@ -8,7 +8,7 @@ using System.Globalization;
 
 namespace MotMeles_v1 {
 
-    internal class Utile {
+    public class Utile {
         /// <summary>
         /// Vérifie si le mot trouvé existe et s'il est bien dans la position décrite dans le tableau
         /// </summary>
@@ -31,14 +31,6 @@ namespace MotMeles_v1 {
             return -1;
         }
         
-        public static IEnumerable<string> LireFichier(string chemin) {
-            if (File.Exists(chemin)) {
-                IEnumerable<string> lines = File.ReadLines(chemin);
-                return lines;
-            }
-            return null;
-        }
-
         public static Boolean EstNumerique(String entree, NumberStyles numberStyle) {
             Boolean result = int.TryParse(entree, numberStyle, CultureInfo.CurrentCulture, out _);
             return result;

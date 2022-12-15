@@ -25,7 +25,7 @@ namespace MotMeles_v1
         {
             this.niveau = niveau;
             this.GenererPlateauAleatoire(dico);
-            this.limite_temps = 1000 * 60;//300000; // en miliseconde
+            this.limite_temps = 300000; // en miliseconde
         }
         public Plateau(string nomfile)
         {
@@ -434,7 +434,7 @@ namespace MotMeles_v1
                         }
                         break;
                     case "S":
-                        while (i < mot.Length && ligne + i<lettres.GetLength(0))
+                        while (i < mot.Length && ligne + i < lettres.GetLength(0))
                         {
                             if (mot[i] == lettres[ligne + i, colonne] && i == mot.Length - 1)
                             {
@@ -542,35 +542,35 @@ namespace MotMeles_v1
         /// <param name="direction">son orientation</param> 
         /// <param name="ligne">la position de la première lettre selon les lignes</param> 
         /// <param name="colone">la position de la première lettre selon les colones</param> 
-        public void ViderGrilleMot(string mot, string direction,int ligne, int colone)
+        public void ViderGrilleMot(string mot, string direction,int ligne, int colonne)
         {
             for(int i = 0; i < mot.Length; i++)
             {
-                switch (direction)
+                switch (direction.ToUpper())
                 {
                     case "N":
-                        this.lettres[ligne,colone+i]=' ';
+                        this.lettres[ligne,colonne+i]= ' ';
                         break;
                     case "S":
-                        this.lettres[ligne+i, colone] = ' ';
+                        this.lettres[ligne+i, colonne] = ' ';
                         break;
                     case "E":
-                        this.lettres[ligne, colone - i] = ' ';
+                        this.lettres[ligne, colonne + i] = ' ';
                         break;
                     case "O":
-                        this.lettres[ligne-i, colone] = ' ';
+                        this.lettres[ligne, colonne - i] = ' ';
                         break;
                     case "SE":
-                        this.lettres[ligne+i, colone + i] = ' ';
+                        this.lettres[ligne+i, colonne + i] = ' ';
                         break;
                     case "NE":
-                        this.lettres[ligne-i, colone + i] = ' ';
+                        this.lettres[ligne-i, colonne + i] = ' ';
                         break;
                     case "NO":
-                        this.lettres[ligne-i, colone - i] = ' ';
+                        this.lettres[ligne-i, colonne - i] = ' ';
                         break;
                     case "SO":
-                        this.lettres[ligne + i, colone - i] = ' ';
+                        this.lettres[ligne + i, colonne - i] = ' ';
                         break;
                 }
             }
@@ -579,14 +579,15 @@ namespace MotMeles_v1
         /// 
         /// </summary>
         /// <param name="nbrPlateau">Le nombre de plateau à générer pour un niveau</param>
-        /// <param name="niveau">le nombre de niveau souhaité (le maximum est 5)</param>
+        /// <param name="dico">Dictionnaire de la partie</param>
         /// <param name="indiceDebut">L'indice qui représente le premier niveau auquel la génération des plateaux doit commencer</param>
         /// <returns>Retourne un tableau à deux dimensions contenant les plateaux, par niveau, de chaque joueur</returns>
-        public static Plateau[,] GenererPlateaux(int nbrPlateau, int niveau, Dictionnaire dico, int indiceDebut = 1) {
-            Plateau[,] plateaux = new Plateau[niveau, nbrPlateau];
-            for (int i = indiceDebut; i < niveau + 1; i++) {
+        public static Plateau[,] GenererPlateaux(int nbrPlateau, Dictionnaire dico, int indiceDebut = 1) {
+            int nbrNiveauPropose = Constantes.descriptionNiveauDeDifficulte.Length;
+            Plateau[,] plateaux = new Plateau[nbrNiveauPropose - indiceDebut + 1, nbrPlateau];
+            for (int i = 0; i < nbrNiveauPropose - indiceDebut + 1; i++) {
                 for (int j = 0; j < nbrPlateau; j++) {
-                    plateaux[niveau - i, j] = new Plateau(niveau + 1 - i, dico);
+                    plateaux[i, j] = new Plateau(indiceDebut + i, dico);
                 }
             }
             return plateaux;

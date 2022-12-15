@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MotMeles_v1 {
-    internal class Constantes {
+    public class Constantes {
         public static readonly string cheminDicoFrancais = "Dictionnaires\\MotsPossiblesFR.txt";
         public static readonly string cheminDicoAnglais = "Dictionnaires\\MotsPossiblesEN.txt";
         public static readonly string[] descriptionNiveauDeDifficulte = new string[] 

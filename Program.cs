@@ -34,6 +34,7 @@ namespace MotMeles_v1 {
                     }
                 } catch (Exception err) {
                     Console.WriteLine("Une erreur est survenue :\n" + err.Message);
+                    Console.ReadKey();
                 }
             } while (cki.Key != ConsoleKey.Escape);
             Console.WriteLine("Fin du programme");
@@ -49,13 +50,7 @@ namespace MotMeles_v1 {
             Joueur[] joueurs = ListerJoueurs();
             Dictionnaire dictionnaire = ChoisirLangue();
             int niveauDifficulte = ChoisirDifficulte();
-            Plateau[,] plateaux = Plateau.GenererPlateaux(joueurs.Length, Constantes.descriptionNiveauDeDifficulte.Length, dictionnaire, niveauDifficulte);
-
-            foreach (Plateau p in plateaux) {
-                Console.WriteLine(p.ToString());
-            }
-            Console.ReadKey();
-
+            Plateau[,] plateaux = Plateau.GenererPlateaux(joueurs.Length, dictionnaire, niveauDifficulte);
             return new Jeu(dictionnaire, joueurs, plateaux);
         }
 
@@ -137,7 +132,6 @@ namespace MotMeles_v1 {
             Console.Clear();
             Console.WriteLine($"Veuillez choisir un niveau de difficulté parmis ceux proposés :\n{String.Join("\n", Constantes.descriptionNiveauDeDifficulte)}");
             string strDifficulte = Console.ReadLine();
-            // Régler une erreur ici
             bool estNumerique = Utile.EstNumerique(strDifficulte, NumberStyles.Integer);
             int niveauDifficulte = 0;
             if (estNumerique) {

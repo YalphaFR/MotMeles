@@ -56,8 +56,8 @@ namespace MotMeles_v1
             return $"{this.nom}\nScore : {this.score} points\nMots trouvés :\n {String.Join(" ; ", this.mots)}";
         }
 
-        public void AugmenterScore() {
-            this.score += 1;
+        public void AugmenterScore(int m = 1) {
+            this.score += m;
         }
         /// <summary>
         /// Enregistre un Joueur dans un fichier csv
